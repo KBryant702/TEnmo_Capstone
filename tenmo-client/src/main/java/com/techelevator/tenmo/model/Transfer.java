@@ -6,10 +6,13 @@ public class Transfer {
     
     private long transferId;
     private long transferTypeId;
+    private String transferTypeDesc;
     private long transferStatusId;
+    private String transferStatusDesc;
     private long accountFrom;
     private long accountTo;
     private BigDecimal amount;
+
 
     
     public long getTransferId() {
@@ -17,6 +20,12 @@ public class Transfer {
     }
     public void setTransferId(long transferId) {
         this.transferId = transferId;
+    }
+    public String getTransferTypeDesc() {
+        return transferTypeDesc;
+    }
+    public void setTransferTypeDesc(String transferTypeDesc) {
+        this.transferTypeDesc = transferTypeDesc;
     }
     public long getTransferTypeId() {
         return transferTypeId;
@@ -47,5 +56,11 @@ public class Transfer {
     }
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+    public String getTransferStatusDesc() {
+        return transferStatusDesc;
+    }
+    public void setTransferStatusDesc(String transferStatusDesc) {
+        this.transferStatusDesc = transferStatusDesc;
     }
 }

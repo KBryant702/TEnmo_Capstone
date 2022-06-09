@@ -1,0 +1,3 @@
+com\techelevator\tenmo\model\Account.class
+com\techelevator\tenmo\model\AuthenticatedUser.class
+com\techelevator\tenmo\services\AccountService.class

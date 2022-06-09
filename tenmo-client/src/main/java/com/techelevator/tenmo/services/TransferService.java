@@ -1,0 +1,32 @@
+package com.techelevator.tenmo.services;
+
+import com.techelevator.tenmo.model.Account;
+import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Transfer;
+
+import java.math.BigDecimal;
+
+public interface TransferService {
+    
+    void createTransfer(AuthenticatedUser authenticatedUser, AuthenticatedUser transferTo, BigDecimal amount);
+    
+    Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId);
+    
+    Transfer getTransferByTransferId(AuthenticatedUser authenticatedUser, long transferId);
+    
+    Transfer[] getAllTransfers(AuthenticatedUser authenticatedUser);     // revisit
+    
+    Transfer[] getPendingTransferByUserId(AuthenticatedUser authenticatedUser, long userId);
+    
+    void updateTransferStatus(AuthenticatedUser authenticatedUser, long transferId);
+    
+    Transfer[] getTransferStatus(AuthenticatedUser authenticatedUser, String description);
+    
+    Transfer getTransferStatusById(AuthenticatedUser authenticatedUser, long transferStatusId);
+    
+    Transfer getTransferType(AuthenticatedUser authenticatedUser, String description);
+    
+    Transfer getTransferTypeById(AuthenticatedUser authenticatedUser, long transferTypeId);
+    
+    
+}
