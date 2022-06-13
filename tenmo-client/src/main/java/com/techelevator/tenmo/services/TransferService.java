@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public interface TransferService {
     
-    void createTransfer(AuthenticatedUser authenticatedUser, AuthenticatedUser transferTo, BigDecimal amount);
+    boolean createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
     
     Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId);
     
@@ -18,15 +18,8 @@ public interface TransferService {
     
     Transfer[] getPendingTransferByUserId(AuthenticatedUser authenticatedUser, long userId);
     
-    void updateTransferStatus(AuthenticatedUser authenticatedUser, long transferId);
     
-    Transfer[] getTransferStatus(AuthenticatedUser authenticatedUser, String description);
-    
-    Transfer getTransferStatusById(AuthenticatedUser authenticatedUser, long transferStatusId);
-    
-    Transfer getTransferType(AuthenticatedUser authenticatedUser, String description);
-    
-    Transfer getTransferTypeById(AuthenticatedUser authenticatedUser, long transferTypeId);
+
     
     
 }

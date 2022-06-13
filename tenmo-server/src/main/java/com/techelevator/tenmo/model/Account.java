@@ -1,15 +1,16 @@
 package com.techelevator.tenmo.model;
 
+
 public class Account {
-    
+
     private long accountId;
     private long userId;
     private Balance balance;
-    
+
     public Account(){
-        
+
     }
-    
+
     public Account(long accountId, long userId, Balance balance) {
         this.accountId = accountId;
         this.userId = userId;
@@ -28,12 +29,20 @@ public class Account {
     public void setUserId(long userId) {
         this.userId = userId;
     }
-
     public Balance getBalance() {
         return balance;
     }
-
     public void setBalance(Balance balance) {
         this.balance = balance;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", userId=" + userId +
+                ", balance=" + balance +
+                '}';
     }
 }
