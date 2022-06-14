@@ -10,16 +10,9 @@ public interface AccountDao {
     
         List<Account> findAllAccounts();
         
-        Account findAccountById(long accountId);
+        Account findAccountByAccountId(long accountId);
         
         Account findAccountByUserId(long userId);
         
         Balance getBalance(String user);
-        
-        boolean createAccount(long accountId, long userId, Balance balance);
-        
-        boolean updateAccount(Account accountToUpdate);
-        
-     
-    
 }

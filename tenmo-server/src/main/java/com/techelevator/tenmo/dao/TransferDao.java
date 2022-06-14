@@ -15,9 +15,7 @@ public interface TransferDao {
     
     List<Transfer> getPendingTransfers(long userid);
     
-    boolean createSendTransfer(long accountFrom, long accountTo, BigDecimal amount);
-    
-    boolean createRequestTransfer(long accountFrom, long accountTo, BigDecimal amount);
+    boolean createTransfer(Transfer transfer);
     
     boolean updateTransfer(Transfer transferToUpdate);
     
