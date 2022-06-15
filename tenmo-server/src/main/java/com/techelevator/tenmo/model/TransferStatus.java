@@ -5,6 +5,15 @@ public class TransferStatus {
     private long transferStatusId;
     private String transferStatusDesc;
 
+    public TransferStatus(){
+        
+    }
+    
+    public TransferStatus(long transferStatusId, String transferStatusDesc) {
+        this.transferStatusId = transferStatusId;
+        this.transferStatusDesc = transferStatusDesc;
+    }
+
     public long getTransferStatusId() {
         return transferStatusId;
     }

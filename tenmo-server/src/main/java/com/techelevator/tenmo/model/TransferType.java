@@ -5,6 +5,15 @@ public class TransferType {
     private long transferTypeId;
     private String transferTypeDesc;
 
+    public TransferType(){
+        
+    }
+    
+    public TransferType(long transferTypeId, String transferTypeDesc) {
+        this.transferTypeId = transferTypeId;
+        this.transferTypeDesc = transferTypeDesc;
+    }
+
     public long getTransferTypeId() {
         return transferTypeId;
     }
