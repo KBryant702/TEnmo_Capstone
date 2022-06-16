@@ -1,15 +1,21 @@
 package com.techelevator.tenmo.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 public class User {
 
+   @NotNull
    private Long id;
+   @NotEmpty
    private String username;
+   @NotEmpty
    private String password;
-   private boolean activated;
+   @NotNull
+   private Boolean activated;
    private Set<Authority> authorities = new HashSet<>();
 
    public User() { }

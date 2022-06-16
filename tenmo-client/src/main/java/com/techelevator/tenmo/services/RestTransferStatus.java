@@ -19,7 +19,7 @@ public class RestTransferStatus implements TransferStatusService{
     public Transfer getTransferStatus(AuthenticatedUser authenticatedUser, String description) {
         Transfer transferStatus = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transferstatus/filter?description="    // transferstatus needs revision as it's not setup in this form
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/filter?description="    // transferstatus needs revision as it's not setup in this form
                     + description, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
             transferStatus = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -33,7 +33,7 @@ public class RestTransferStatus implements TransferStatusService{
     public Transfer getTransferStatusById(AuthenticatedUser authenticatedUser, long transferStatusId) {
         Transfer transferStatus = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transferstatus/" + transferStatusId,  // same as stated in above method
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/" + transferStatusId,  // same as stated in above method
                     HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
             transferStatus = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -52,7 +52,7 @@ public class RestTransferStatus implements TransferStatusService{
         boolean success = false;
 
         try {
-            restTemplate.put(API_BASE_URL + "/transfers/" + transfer.getTransferId(), HttpMethod.PUT, entity, Transfer.class);
+            restTemplate.put(API_BASE_URL + "/transfer/" + transfer.getTransferId(), HttpMethod.PUT, entity, Transfer.class);
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         } catch (ResourceAccessException e) {

@@ -42,7 +42,7 @@ public class TEnmoController {
         return userDao.findAll();
     }
 
-    @GetMapping(path="/transfers")
+    @GetMapping(path= "/transfer")
     public List<Transfer> getAllTransfers() {
         return transferDao.getAllTransfers();
     }

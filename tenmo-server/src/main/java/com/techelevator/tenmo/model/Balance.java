@@ -2,10 +2,11 @@ package com.techelevator.tenmo.model;
 
 import com.techelevator.tenmo.exceptions.InsufficientFunds;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class Balance {
-
+    @NotNull
     private BigDecimal balance;
 
     public BigDecimal getBalance() {

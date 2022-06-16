@@ -26,7 +26,7 @@ public class RestTransferService implements TransferService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authenticatedUser.getToken());
         HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
-        String url = API_BASE_URL + "/transfers/" + transfer.getTransferId();
+        String url = API_BASE_URL + "/transfer/" + transfer.getTransferId();
         boolean success = false;
         
         try{
@@ -44,7 +44,7 @@ public class RestTransferService implements TransferService {
     public Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId) {
         Transfer[] transfers = null;
         try{
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfers/user/" +userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
+            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" +userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
             transfers = response.getBody();
         }catch(RestClientResponseException e){
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
@@ -59,7 +59,7 @@ public class RestTransferService implements TransferService {
     public Transfer getTransferByTransferId(AuthenticatedUser authenticatedUser, long transferId) {
         Transfer transfer = null;
         try{
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfers/" + transferId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer/" + transferId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
             transfer = response.getBody();
         }catch(RestClientResponseException e){
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
@@ -74,7 +74,7 @@ public class RestTransferService implements TransferService {
     public Transfer[] getAllTransfers(AuthenticatedUser authenticatedUser) {
         Transfer[] transfers = new Transfer[0];
         try{
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfers", HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
+            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer", HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
             transfers = response.getBody();
         }catch(RestClientResponseException e){
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
@@ -89,7 +89,7 @@ public class RestTransferService implements TransferService {
     public Transfer[] getPendingTransferByUserId(AuthenticatedUser authenticatedUser, long userId) {
         Transfer[] transfers = null;
         try {
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfers/user/" + authenticatedUser.getUser().getId() + "/pending",
+            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + authenticatedUser.getUser().getId() + "/pending",
                     HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
             transfers = response.getBody();
         } catch (RestClientResponseException e) {

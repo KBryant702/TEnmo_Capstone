@@ -3,9 +3,11 @@ package com.techelevator.tenmo.dao;
 import com.techelevator.tenmo.model.TransferType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 
+@Component
 public class jdbcTransferTypeDao implements TransferTypeDao{
     
     private JdbcTemplate jdbcTemplate;

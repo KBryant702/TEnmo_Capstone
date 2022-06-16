@@ -1,8 +1,15 @@
 package com.techelevator.tenmo.model;
 
-public class TransferStatus {
+import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+public class TransferStatus {
+    @Id
+    @NotNull
     private long transferStatusId;
+    @NotEmpty
     private String transferStatusDesc;
 
     public TransferStatus(){

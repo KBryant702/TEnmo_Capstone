@@ -1,9 +1,11 @@
 package com.techelevator.tenmo.model;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 public class Authority {
 
+   @NotEmpty
    private String name;
 
    public String getName() {

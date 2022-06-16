@@ -19,7 +19,7 @@ public class RestTransferTypeService implements TransferTypeService {
     public Transfer getTransferType(AuthenticatedUser authenticatedUser, String description) {
         Transfer transferType = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfertype/filter?description="    // same as stated in above method
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer_type/filter?description="    // same as stated in above method
                     + description, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
             transferType = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
@@ -33,7 +33,7 @@ public class RestTransferTypeService implements TransferTypeService {
     public Transfer getTransferTypeById(AuthenticatedUser authenticatedUser, long transferTypeId) {
         Transfer transferType = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfertype/" + transferTypeId,   // same as stated in above method
+            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "transfer_type/" + transferTypeId,   // same as stated in above method
                     HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
             transferType = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {

@@ -26,7 +26,7 @@ public class RestUserService implements UserService{
         User[] users = null;
         
         try{
-            users = restTemplate.exchange(API_BASE_URL + "/user", HttpMethod.GET, createEntity(authenticatedUser),
+            users = restTemplate.exchange(API_BASE_URL + "/tenmo_user", HttpMethod.GET, createEntity(authenticatedUser),
                     User[].class).getBody();
         }catch(RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
@@ -38,7 +38,7 @@ public class RestUserService implements UserService{
     public User getUserByUserId(AuthenticatedUser authenticatedUser, long userId) {
         User user = null;
         try {
-            user = restTemplate.exchange(API_BASE_URL + "/user/" + userId, HttpMethod.GET, createEntity(authenticatedUser), User.class).getBody();
+            user = restTemplate.exchange(API_BASE_URL + "/tenmo_user/" + userId, HttpMethod.GET, createEntity(authenticatedUser), User.class).getBody();
         } catch(RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
