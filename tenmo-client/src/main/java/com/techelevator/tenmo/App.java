@@ -24,7 +24,7 @@ public class App {
     
 
     public static void main(String[] args) {
-        App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
+        App app = new App(new AuthenticationService(API_BASE_URL), new ConsoleService(System.in, System.out));
         app.run();
     }
 
