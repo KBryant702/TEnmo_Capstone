@@ -13,8 +13,13 @@ import org.springframework.web.client.RestTemplate;
 public class RestTransferTypeService implements TransferTypeService {
 
     private RestTemplate restTemplate;
-    public static final String API_BASE_URL = "http://localhost:5432/tenmo"; // insert final url here
+    private final String API_BASE_URL;
 
+    public RestTransferTypeService(String API_BASE_URL){
+        this.restTemplate = new RestTemplate();
+        this.API_BASE_URL = API_BASE_URL;
+    }
+    
     @Override
     public Transfer getTransferType(AuthenticatedUser authenticatedUser, String description) {
         Transfer transferType = null;

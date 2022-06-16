@@ -1,7 +1,7 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.UserCredentials;
+import com.techelevator.tenmo.model.Balance;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -15,14 +15,19 @@ import com.techelevator.tenmo.model.AuthenticatedUser;
 public class RestAccountService implements AccountService {
 
     private RestTemplate restTemplate;
-    public static final String API_BASE_URL = "http://localhost:5432/tenmo"; // insert final url here
+    private final String API_BASE_URL; 
 
+    public RestAccountService(String API_BASE_URL){
+        this.restTemplate = new RestTemplate();
+        this.API_BASE_URL = API_BASE_URL;
+    }
+    
 
     @Override
-    public Account getBalance(AuthenticatedUser authenticatedUser) {
-        Account balance = null;
+    public Balance getBalance(AuthenticatedUser authenticatedUser) {
+        Balance balance = null;
         try{
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);
+            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, createHttpEntity(authenticatedUser), Balance.class);
             balance = response.getBody();
         }catch(RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());

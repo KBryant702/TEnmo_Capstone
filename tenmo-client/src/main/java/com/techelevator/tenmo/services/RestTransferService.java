@@ -17,8 +17,12 @@ import java.math.BigDecimal;
 public class RestTransferService implements TransferService {
 
     private RestTemplate restTemplate;
-    public static final String API_BASE_URL = "http://localhost:5432/tenmo"; // insert final url here
+    private final String API_BASE_URL;
     
+    public RestTransferService(String API_BASE_URL){
+        this.restTemplate = new RestTemplate();
+        this.API_BASE_URL = API_BASE_URL;
+    }
 
     @Override
     public boolean createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer) {

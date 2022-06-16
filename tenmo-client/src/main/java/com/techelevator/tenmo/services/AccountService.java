@@ -2,11 +2,12 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Balance;
 
 public interface AccountService {
     
     
-    Account getBalance(AuthenticatedUser authenticatedUser);
+    Balance getBalance(AuthenticatedUser authenticatedUser);
 
     Account getAccountId(AuthenticatedUser authenticatedUser, long accountId);
 

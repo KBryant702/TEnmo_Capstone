@@ -7,9 +7,9 @@ public class Account {
     private Balance balance;
     
     public Account(){
-        
+
     }
-    
+
     public Account(long accountId, long userId, Balance balance) {
         this.accountId = accountId;
         this.userId = userId;

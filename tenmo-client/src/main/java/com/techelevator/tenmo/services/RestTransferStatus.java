@@ -13,8 +13,13 @@ import org.springframework.web.client.RestTemplate;
 public class RestTransferStatus implements TransferStatusService{
     
     private RestTemplate restTemplate;
-    public static final String API_BASE_URL = "http://localhost:5432/tenmo";
+    private final String API_BASE_URL;
 
+    public RestTransferStatus(String API_BASE_URL){
+        this.restTemplate = new RestTemplate();
+        this.API_BASE_URL = API_BASE_URL;
+    }
+    
     @Override
     public Transfer getTransferStatus(AuthenticatedUser authenticatedUser, String description) {
         Transfer transferStatus = null;

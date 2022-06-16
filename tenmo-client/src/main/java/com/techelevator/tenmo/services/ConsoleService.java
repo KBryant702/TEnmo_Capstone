@@ -3,13 +3,25 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.UserCredentials;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleService {
 
     private final Scanner scanner = new Scanner(System.in);
-
+    private PrintWriter output;
+    private Scanner input;
+    
+    
+    public ConsoleService(InputStream input, OutputStream output){
+        this.output = new PrintWriter(output, true);
+        this.input = new Scanner(input);
+    }
+    
+    
     public int promptForMenuSelection(String prompt) {
         int menuSelection;
         System.out.print(prompt);

@@ -1,22 +1,41 @@
 package com.techelevator.tenmo;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
+import com.techelevator.tenmo.model.Balance;
 import com.techelevator.tenmo.model.UserCredentials;
-import com.techelevator.tenmo.services.AuthenticationService;
-import com.techelevator.tenmo.services.ConsoleService;
+import com.techelevator.tenmo.services.*;
 
 public class App {
 
     private static final String API_BASE_URL = "http://localhost:8080/";
 
-    private final ConsoleService consoleService = new ConsoleService();
-    private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
+//    private final ConsoleService consoleService = new ConsoleService();
+//    private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
+    
 
     private AuthenticatedUser currentUser;
+    private AccountService accountService;
+    private AuthenticationService authenticationService;
+    private UserService userService;
+    private TransferTypeService transferTypeService;
+    private TransferStatusService transferStatusService;
+    private TransferService transferService;
+    private ConsoleService consoleService;
+    
 
     public static void main(String[] args) {
-        App app = new App();
+        App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
         app.run();
+    }
+
+    public App(AuthenticationService authenticationService, ConsoleService console) {
+        this.authenticationService = authenticationService;
+        this.consoleService = console;
+        this.accountService = new RestAccountService(API_BASE_URL);
+        this.userService = new RestUserService();
+        this.transferTypeService = new RestTransferTypeService(API_BASE_URL);
+        this.transferStatusService = new RestTransferStatus(API_BASE_URL);
+        this.transferService = new RestTransferService(API_BASE_URL);
     }
 
     private void run() {
@@ -86,7 +105,8 @@ public class App {
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
-		
+        Balance balance = accountService.getBalance(currentUser);
+        System.out.println("Your current account balance is: $" + balance);
 	}
 
 	private void viewTransferHistory() {
