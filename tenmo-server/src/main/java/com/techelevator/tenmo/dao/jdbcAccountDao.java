@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class jdbcAccountDAO implements AccountDao{
+public class jdbcAccountDao implements AccountDao{
     
     private JdbcTemplate jdbcTemplate;
     
@@ -69,7 +69,14 @@ public class jdbcAccountDAO implements AccountDao{
         return balance;
     }
     
-    // add an update balance method
+    @Override
+    public boolean updateAccount(Account account){
+        String sql = "UPDATE account SET balance = ? WHERE account_id = ?;";
+        
+        int numberOfRows = jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
+        
+        return numberOfRows == 1;
+    }
     
     private Account mapResultToAccounts(SqlRowSet result){
         long accountId = result.getLong("account_id");

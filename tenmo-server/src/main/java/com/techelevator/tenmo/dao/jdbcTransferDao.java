@@ -33,7 +33,7 @@ public class jdbcTransferDao implements TransferDao{
     }
     
     @Override
-    public List<Transfer> getTransferByUserId(long userId){
+    public List<Transfer> getTransfersByUserId(long userId){
         List<Transfer> transfers = new ArrayList<>();
         
         String sql = "SELECT userId, transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount, " +

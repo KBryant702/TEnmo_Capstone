@@ -15,7 +15,7 @@ public class jdbcTransferTypeDao implements TransferTypeDao{
     }
     
     @Override
-    public TransferType getByTypeId(long typeId){
+    public TransferType getTransferTypeByTypeId(long typeId){
         TransferType transferType = null;
         String sql = "SELECT transfer_type_id, transfer_type_desc FROM transfer_type WHERE transfer_type_id = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, typeId);
@@ -29,7 +29,7 @@ public class jdbcTransferTypeDao implements TransferTypeDao{
     }
     
     @Override
-    public TransferType getByTypeDesc(String typeDesc){
+    public TransferType getTransferTypeByTypeDesc(String typeDesc){
         TransferType transferType = null;
         String sql = "SELECT transfer_type_id, transfer_type_desc FROM transfer_type WHERE transfer_type_desc = ?;";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, typeDesc);

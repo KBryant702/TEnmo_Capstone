@@ -15,4 +15,6 @@ public interface AccountDao {
         Account findAccountByUserId(long userId);
         
         Balance getBalance(String user);
+
+        boolean updateAccount(Account account);
 }
