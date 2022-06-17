@@ -21,7 +21,7 @@ public class RestAccountService implements AccountService {
         this.restTemplate = new RestTemplate();
         this.API_BASE_URL = API_BASE_URL;
     }
-    
+
 
     @Override
     public Balance getBalance(AuthenticatedUser authenticatedUser) {

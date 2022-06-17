@@ -34,7 +34,7 @@ public class App {
         this.accountService = new RestAccountService(API_BASE_URL);
         this.userService = new RestUserService();
         this.transferTypeService = new RestTransferTypeService(API_BASE_URL);
-        this.transferStatusService = new RestTransferStatus(API_BASE_URL);
+        this.transferStatusService = new RestTransferStatusService(API_BASE_URL);
         this.transferService = new RestTransferService(API_BASE_URL);
     }
 

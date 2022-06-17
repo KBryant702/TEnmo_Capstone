@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 
 public interface TransferService {
     
-    boolean createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
+    void createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
     
     Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId);
     

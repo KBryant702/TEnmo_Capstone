@@ -25,23 +25,20 @@ public class RestTransferService implements TransferService {
     }
 
     @Override
-    public boolean createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer) {
+    public void createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authenticatedUser.getToken());
         HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
         String url = API_BASE_URL + "/transfer/" + transfer.getTransferId();
-        boolean success = false;
         
         try{
             restTemplate.exchange(url, HttpMethod.POST, entity, Transfer.class);
-            success = true;
         }catch(RestClientResponseException e){
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         }catch(RestClientException e){
             BasicLogger.log(e.getMessage());
         }
-        return success;
     }
 
     @Override
