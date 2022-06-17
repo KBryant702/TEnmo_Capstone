@@ -13,6 +13,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+//@RequestMapping(path =) //// NEEDS PATH
 @PreAuthorize("isAuthenticated()")
 public class TEnmoController {
     

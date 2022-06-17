@@ -104,7 +104,6 @@ public class App {
     }
 
 	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
         Balance balance = accountService.getBalance(currentUser);
         System.out.println("Your current account balance is: $" + balance);
 	}

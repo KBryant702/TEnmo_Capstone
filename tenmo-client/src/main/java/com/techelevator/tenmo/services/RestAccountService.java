@@ -25,11 +25,11 @@ public class RestAccountService implements AccountService {
 
     @Override
     public Balance getBalance(AuthenticatedUser authenticatedUser) {
-        Balance balance = null;
-        try{
+        Balance balance;
+        try {
             ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, createHttpEntity(authenticatedUser), Balance.class);
             balance = response.getBody();
-        }catch(RestClientResponseException | ResourceAccessException e){
+        } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
         return balance;
