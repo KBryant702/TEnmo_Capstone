@@ -1,14 +1,13 @@
 package com.techelevator.tenmo.model;
 
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
+@Entity
 public class Account {
-    
+
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long accountId;
     
     @NotNull
@@ -16,6 +15,11 @@ public class Account {
     
     @NotNull
     private Balance balance;
+
+
+    public void setId(Long id) {
+        this.accountId = id;
+    }
 
     public Account(){
 

@@ -3,10 +3,12 @@ package com.techelevator.tenmo.model;
 import com.techelevator.tenmo.exceptions.InsufficientFunds;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 public class Balance {
     @NotNull
+    @PositiveOrZero
     private BigDecimal balance;
 
     public BigDecimal getBalance() {

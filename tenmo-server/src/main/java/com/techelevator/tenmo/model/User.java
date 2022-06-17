@@ -1,14 +1,16 @@
 package com.techelevator.tenmo.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-
+@Entity
 public class User {
-
-   @NotNull
+   @Id
+   @GeneratedValue(strategy = GenerationType.AUTO)
+   @Column(name ="user_id")
    private Long id;
    @NotEmpty
    private String username;

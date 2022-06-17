@@ -2,12 +2,15 @@ package com.techelevator.tenmo.model;
 
 import org.springframework.data.annotation.Id;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class TransferType {
     @Id
     @NotNull
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long transferTypeId;
     @NotEmpty
     private String transferTypeDesc;

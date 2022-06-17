@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class jdbcTransferDao implements TransferDao{
+public class JdbcTransferDao implements TransferDao{
     
     private JdbcTemplate jdbcTemplate;
 
-    public jdbcTransferDao(JdbcTemplate jdbcTemplate) {
+    public JdbcTransferDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
     

@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 @Component
-public class jdbcTransferTypeDao implements TransferTypeDao{
+public class JdbcTransferTypeDao implements TransferTypeDao{
     
     private JdbcTemplate jdbcTemplate;
     
-    public jdbcTransferTypeDao(DataSource dataSource){
+    public JdbcTransferTypeDao(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
     
