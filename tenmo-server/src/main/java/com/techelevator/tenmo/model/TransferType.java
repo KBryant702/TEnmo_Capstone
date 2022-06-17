@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 public class TransferType {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private long transferTypeId;
     @NotEmpty
     private String transferTypeDesc;

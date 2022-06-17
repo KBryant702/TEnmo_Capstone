@@ -3,17 +3,17 @@ package com.techelevator.tenmo.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-@Entity
+
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull
     private long accountId;
-    
-    @OneToOne
+
+    @NotNull
     private long userId;
     
-    @OneToOne
+    @NotNull
     private Balance balance;
 
 

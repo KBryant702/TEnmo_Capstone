@@ -6,11 +6,9 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-@Entity
+
 public class User {
-   @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
-   @Column(name ="user_id")
+   @NotNull
    private Long id;
    @NotEmpty
    private String username;
