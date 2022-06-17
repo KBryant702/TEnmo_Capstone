@@ -6,15 +6,15 @@ public class Account {
     private long userId;
     private Balance balance;
     
-    public Account(){
-
-    }
-
-    public Account(long accountId, long userId, Balance balance) {
-        this.accountId = accountId;
-        this.userId = userId;
-        this.balance = balance;
-    }
+//    public Account(){
+//
+//    }
+//
+//    public Account(long accountId, long userId, Balance balance) {
+//        this.accountId = accountId;
+//        this.userId = userId;
+//        this.balance = balance;
+//    }
 
     public long getAccountId() {
         return accountId;
