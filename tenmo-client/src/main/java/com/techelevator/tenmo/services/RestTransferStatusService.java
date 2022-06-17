@@ -10,16 +10,16 @@ import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class RestTransferStatusService implements TransferStatusService{
-    
+public class RestTransferStatusService implements TransferStatusService {
+
     private RestTemplate restTemplate;
     private final String API_BASE_URL;
 
-    public RestTransferStatusService(String API_BASE_URL){
+    public RestTransferStatusService(String API_BASE_URL) {
         this.restTemplate = new RestTemplate();
         this.API_BASE_URL = API_BASE_URL;
     }
-    
+
     @Override
     public Transfer getTransferStatus(AuthenticatedUser authenticatedUser, String description) {
         Transfer transferStatus = null;
@@ -66,11 +66,6 @@ public class RestTransferStatusService implements TransferStatusService{
         return success;
 
     }
-
-
-
-
-
 
 
     private HttpEntity<AuthenticatedUser> createHttpEntity(AuthenticatedUser authenticatedUser) {    //confirm this is supposed to be authenticatedUser

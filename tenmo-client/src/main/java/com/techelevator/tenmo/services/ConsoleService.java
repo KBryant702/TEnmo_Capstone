@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.io.InputStream;
@@ -14,14 +15,14 @@ public class ConsoleService {
     private final Scanner scanner = new Scanner(System.in);
     private PrintWriter output;
     private Scanner input;
-    
-    
-    public ConsoleService(InputStream input, OutputStream output){
+
+
+    public ConsoleService(InputStream input, OutputStream output) {
         this.output = new PrintWriter(output, true);
         this.input = new Scanner(input);
     }
-    
-    
+
+
     public int promptForMenuSelection(String prompt) {
         int menuSelection;
         System.out.print(prompt);
@@ -89,6 +90,18 @@ public class ConsoleService {
                 System.out.println("Please enter a decimal number.");
             }
         }
+    }
+
+    public void printTransfers(long transferId, String fromOrTo, BigDecimal amount) {
+        output.println(transferId + "     " + fromOrTo + "          " + "$ " + amount);
+    }
+
+    public void printUsers(User[] users) {
+        for (User user : users) {
+            output.println(user.getId() + "          " + user.getUsername());
+        }
+        output.println("---------");
+        output.flush();
     }
 
     public void pause() {
