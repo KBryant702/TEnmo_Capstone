@@ -16,5 +16,5 @@ public interface AccountDao {
         
         Balance getBalance(String user);
 
-        boolean updateAccount(Account account);
+        void updateAccount(Account account);
 }

@@ -28,7 +28,7 @@ public class App {
         app.run();
     }
 
-    public App(AuthenticationService authenticationService, ConsoleService console) {
+    public App(ConsoleService console, AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
         this.consoleService = console;
         this.accountService = new RestAccountService(API_BASE_URL);
@@ -106,7 +106,7 @@ public class App {
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
         Balance balance = accountService.getBalance(currentUser);
-        System.out.println("Your current account balance is: $" + balance);
+        System.out.println("Your current account balance is: $" + balance.getBalance());
 	}
 
 	private void viewTransferHistory() {

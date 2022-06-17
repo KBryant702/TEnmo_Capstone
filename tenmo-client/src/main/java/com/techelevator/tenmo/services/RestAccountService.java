@@ -25,10 +25,12 @@ public class RestAccountService implements AccountService {
 
     @Override
     public Balance getBalance(AuthenticatedUser authenticatedUser) {
+        HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         Balance balance = null;
         try{
-            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, createHttpEntity(authenticatedUser), Balance.class);
-            balance = response.getBody();
+//            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, createHttpEntity(authenticatedUser), Balance.class);
+//            balance = response.getBody();
+            balance = restTemplate.exchange(API_BASE_URL + "/balance", HttpMethod.GET, entity, Balance.class).getBody();
         }catch(RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
@@ -38,7 +40,7 @@ public class RestAccountService implements AccountService {
     //add balanceUpdate?
 
     @Override
-    public Account getAccountId(AuthenticatedUser authenticatedUser, long accountId) {
+    public Account getAccountById(AuthenticatedUser authenticatedUser, long accountId) {
         Account account = null;
         try{
             ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + accountId, HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);

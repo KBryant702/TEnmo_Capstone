@@ -5,6 +5,7 @@ import com.techelevator.tenmo.dao.*;
 import com.techelevator.tenmo.exceptions.InsufficientFunds;
 import com.techelevator.tenmo.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,6 +68,7 @@ public class TEnmoController {
         return transferDao.getPendingTransfers(userId);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/transfer/{id}")
     public void createTransfer(@RequestBody Transfer transfer, @PathVariable long id) throws InsufficientFunds {
         BigDecimal transferAmount = transfer.getAmount();

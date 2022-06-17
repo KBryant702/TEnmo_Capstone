@@ -16,7 +16,7 @@ public class jdbcAccountDao implements AccountDao{
     
     private JdbcTemplate jdbcTemplate;
     
-    public void JdbcAccountDAO(DataSource ds){
+    public jdbcAccountDao(DataSource ds){
         this.jdbcTemplate = new JdbcTemplate(ds);
     }
     
@@ -60,7 +60,7 @@ public class jdbcAccountDao implements AccountDao{
     @Override
     public Balance getBalance(String user){     // this needs to return current logged in account balance
         Balance balance = new Balance();
-        String sql = "SELECT username, balance FROM account JOIN users USING(user_id) WHERE username = ?;";
+        String sql = "SELECT balance FROM account JOIN tenmo_user USING(user_id) WHERE username = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
         if(results.next()){
             String accountBalance = results.getString("balance");
@@ -70,12 +70,11 @@ public class jdbcAccountDao implements AccountDao{
     }
     
     @Override
-    public boolean updateAccount(Account account){
+    public void updateAccount(Account account){
         String sql = "UPDATE account SET balance = ? WHERE account_id = ?;";
         
-        int numberOfRows = jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
+        jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
         
-        return numberOfRows == 1;
     }
     
     private Account mapResultToAccounts(SqlRowSet result){

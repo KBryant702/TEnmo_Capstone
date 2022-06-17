@@ -9,7 +9,7 @@ public interface AccountService {
     
     Balance getBalance(AuthenticatedUser authenticatedUser);
 
-    Account getAccountId(AuthenticatedUser authenticatedUser, long accountId);
+    Account getAccountById(AuthenticatedUser authenticatedUser, long accountId);
 
     Account getAccountByUserId(AuthenticatedUser authenticatedUser, long userId);
     
