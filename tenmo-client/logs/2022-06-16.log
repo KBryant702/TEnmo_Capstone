@@ -2,3 +2,4 @@
 2022-06-16T16:55:50.0817994 404 : [{"timestamp":"2022-06-16T23:55:50.050+00:00","status":404,"error":"Not Found","message":"No message available","path":"/com.techelevator.tenmo.model.AuthenticatedUser@515aebb0"}]
 2022-06-16T16:59:49.8998474 404 : [{"timestamp":"2022-06-16T23:59:49.882+00:00","status":404,"error":"Not Found","message":"No message available","path":"/com.techelevator.tenmo.model.AuthenticatedUser@4cc451f2"}]
 2022-06-16T17:55:35.9422691 404 : [{"timestamp":"2022-06-17T00:55:35.915+00:00","status":404,"error":"Not Found","message":"No message available","path":"/com.techelevator.tenmo.model.AuthenticatedUser@4cc451f2"}]
+2022-06-16T19:47:10.422313 404 : [{"timestamp":"2022-06-17T02:47:10.390+00:00","status":404,"error":"Not Found","message":"No message available","path":"/com.techelevator.tenmo.model.AuthenticatedUser@12468a38"}]
