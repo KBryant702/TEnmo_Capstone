@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 public class TransferType {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long transferTypeId;
     @NotEmpty

@@ -10,10 +10,10 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long accountId;
     
-    @NotNull
+    @OneToOne
     private long userId;
     
-    @NotNull
+    @OneToOne
     private Balance balance;
 
 

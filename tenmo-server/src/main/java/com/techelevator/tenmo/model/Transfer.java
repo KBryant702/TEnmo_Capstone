@@ -2,28 +2,31 @@ package com.techelevator.tenmo.model;
 
 import org.springframework.data.annotation.Id;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
+import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 
 public class Transfer {
     @Id
-    @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long transferId;
-    @NotNull
-
+    @ManyToOne(fetch =  FetchType.EAGER)
+    @JoinColumn(name = "transfer_type_id")
     private long transferTypeId;
-    @NotNull
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "transfer_status_id")
     private long transferStatusId;
-    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_from", referencedColumnName = "account_id")
     private long accountFrom;
-    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_to", referencedColumnName = "account_id")
     private long accountTo;
     @NotNull
+    @PositiveOrZero
     private BigDecimal amount;
 
     public Transfer(){
