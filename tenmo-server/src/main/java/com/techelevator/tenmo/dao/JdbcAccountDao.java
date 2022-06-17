@@ -4,13 +4,13 @@ import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Balance;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 @Component
 public class JdbcAccountDao implements AccountDao{
     
@@ -70,12 +70,9 @@ public class JdbcAccountDao implements AccountDao{
     }
     
     @Override
-    public boolean updateAccount(Account account){
+    public void updateAccount(Account account){
         String sql = "UPDATE account SET balance = ? WHERE account_id = ?;";
-        
-        int numberOfRows = jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
-        
-        return numberOfRows == 1;
+        jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
     }
     
     private Account mapResultToAccounts(SqlRowSet result){
