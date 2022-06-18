@@ -11,36 +11,36 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 @Component
-public class JdbcAccountDao implements AccountDao{
-    
+public class JdbcAccountDao implements AccountDao {
+
     private JdbcTemplate jdbcTemplate;
-    
-    public void JdbcAccountDAO(DataSource ds){
+
+    public JdbcAccountDao(DataSource ds) {
         this.jdbcTemplate = new JdbcTemplate(ds);
     }
-    
+
     @Override
-    public List<Account> findAllAccounts(){
+    public List<Account> findAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-        
+
         String sql = "SELECT account_id FROM account;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        
-        while(results.next()){
+
+        while (results.next()) {
             accounts.add(mapResultToAccounts(results));
         }
         return accounts;
     }
-    
+
     @Override
-    public Account findAccountByAccountId(long accountId){
+    public Account findAccountByAccountId(long accountId) {
         Account account = null;
         String sql = "SELECT account_id FROM account WHERE account_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
-        
-        if(results.next()){
+
+        if (results.next()) {
             account = mapResultToAccounts(results);
-        }        
+        }
         return account;
     }
 
@@ -82,5 +82,4 @@ public class JdbcAccountDao implements AccountDao{
         balance.setBalance(new BigDecimal(accountBalance));
         return new Account(accountId, userId, balance);
     }
-    
 }
