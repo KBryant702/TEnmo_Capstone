@@ -82,7 +82,7 @@ public class TEnmoController {
         accountDao.updateAccount(accountTo);
     }
 
-    @GetMapping(path = "/transfers")
+    @GetMapping(path = "/transfer/{id}")
     public void updateTransferStatus(@RequestBody Transfer transfer) throws InsufficientFunds {
         if (transfer.getTransferStatusId() == transferStatusDao.getByStatusDesc("Approved").getTransferStatusId()) {
             BigDecimal amountToTransfer = transfer.getAmount();

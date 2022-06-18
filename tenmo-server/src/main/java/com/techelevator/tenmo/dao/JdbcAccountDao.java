@@ -43,38 +43,38 @@ public class JdbcAccountDao implements AccountDao{
         }        
         return account;
     }
-    
+
     @Override
-    public Account findAccountByUserId(long userId){
+    public Account findAccountByUserId(long userId) {
         Account account = null;
         String sql = "SELECT user_id, account_id FROM account WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 
-        if(results.next()){
+        if (results.next()) {
             account = mapResultToAccounts(results);
         }
         return account;
     }
-    
+
     @Override
-    public Balance getBalance(String user){     // this needs to return current logged in account balance
+    public Balance getBalance(String user) {     // this needs to return current logged in account balance
         Balance balance = new Balance();
         String sql = "SELECT balance FROM account JOIN tenmo_user USING(user_id) WHERE username = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
-        if(results.next()){
+        if (results.next()) {
             String accountBalance = results.getString("balance");
             balance.setBalance(new BigDecimal(accountBalance));
         }
         return balance;
     }
-    
+
     @Override
-    public void updateAccount(Account account){
+    public void updateAccount(Account account) {
         String sql = "UPDATE account SET balance = ? WHERE account_id = ?;";
         jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
     }
-    
-    private Account mapResultToAccounts(SqlRowSet result){
+
+    private Account mapResultToAccounts(SqlRowSet result) {
         long accountId = result.getLong("account_id");
         long userId = result.getLong("user_id");
         Balance balance = new Balance();
