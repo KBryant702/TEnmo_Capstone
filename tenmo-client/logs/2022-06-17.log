@@ -4,3 +4,11 @@
 2022-06-17T17:11:33.3205271 401 : [no body]
 2022-06-17T17:11:41.3201555 500 : [{"timestamp":"2022-06-18T00:11:41.313+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
 2022-06-17T17:12:41.3053318 I/O error on GET request for "http://localhost:5432/tenmo/tenmo_user": Connection reset; nested exception is java.net.SocketException: Connection reset
+2022-06-17T17:38:43.9237227 500 : [{"timestamp":"2022-06-18T00:38:43.900+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
+2022-06-17T17:40:42.8498786 500 : [{"timestamp":"2022-06-18T00:40:42.828+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
+2022-06-17T17:59:27.9371285 500 : [{"timestamp":"2022-06-18T00:59:27.915+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
+2022-06-17T18:07:36.7434259 400 : [{"timestamp":"2022-06-18T01:07:36.680+00:00","status":400,"error":"Bad Request","message":"User registration failed.","path":"/register"}]
+2022-06-17T18:08:02.3480613 401 : [no body]
+2022-06-17T18:08:09.7531907 401 : [no body]
+2022-06-17T18:08:18.959732 500 : [{"timestamp":"2022-06-18T01:08:18.956+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
+2022-06-17T18:19:27.194453 500 : [{"timestamp":"2022-06-18T01:19:27.172+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]

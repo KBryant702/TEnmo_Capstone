@@ -1,11 +1,11 @@
 package com.techelevator.tenmo.model;
 
 public class Account {
-    
+
     private long accountId;
     private long userId;
     private Balance balance;
-    
+
 //    public Account(){
 //
 //    }
@@ -19,12 +19,15 @@ public class Account {
     public long getAccountId() {
         return accountId;
     }
+
     public long getUserId() {
         return userId;
     }
+
     public void setAccountId(long accountId) {
         this.accountId = accountId;
     }
+
     public void setUserId(long userId) {
         this.userId = userId;
     }

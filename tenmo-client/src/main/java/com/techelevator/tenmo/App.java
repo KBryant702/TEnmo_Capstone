@@ -14,7 +14,7 @@ public class App {
 
 //    private final ConsoleService consoleService = new ConsoleService();
 //    private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
-    
+
 
     private AuthenticatedUser currentUser;
     private AccountService accountService;
@@ -27,11 +27,11 @@ public class App {
     private static long transferIdNumber;
 
     public static void main(String[] args) {
-        App app = new App(new AuthenticationService(API_BASE_URL), new ConsoleService(System.in, System.out));
+        App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
         app.run();
     }
 
-    public App(AuthenticationService authenticationService, ConsoleService console) {
+    public App(ConsoleService console, AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
         this.consoleService = console;
         this.accountService = new RestAccountService(API_BASE_URL);
@@ -108,7 +108,7 @@ public class App {
 
 	private void viewCurrentBalance() {
         Balance balance = accountService.getBalance(currentUser);
-        System.out.println("Your current account balance is: $" + balance);
+        System.out.println("Your current account balance is: $" + balance.getBalance());
 	}
 
 	private void viewTransferHistory() {
