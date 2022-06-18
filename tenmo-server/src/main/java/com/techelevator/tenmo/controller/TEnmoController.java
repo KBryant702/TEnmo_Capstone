@@ -48,22 +48,22 @@ public class TEnmoController {
         return transferDao.getAllTransfers();
     }
 
-    @GetMapping(path = "/transferType/filter")
+    @GetMapping(path = "/transfer_type/filter")
     public TransferType getTransferTypeByTypeDesc(@RequestParam String desc) {
         return transferTypeDao.getTransferTypeByTypeDesc(desc);
     }
 
-    @GetMapping(path = "/transferStatus/filter")
+    @GetMapping(path = "/transfer_status/filter")
     public TransferStatus getTransferStatusByDesc(@RequestParam String desc) {
         return transferStatusDao.getByStatusDesc(desc);
     }
 
-    @GetMapping(path = "/transferstatus/{id}")
+    @GetMapping(path = "/transfer_status/{id}")
     public TransferStatus getTransferStatusFromId(@PathVariable long transferStatusId) {
         return transferStatusDao.getByStatusId(transferStatusId);
     }
 
-    @GetMapping(path = "/transfers/tenmo_user/{userId}/pending")
+    @GetMapping(path = "/transfer/tenmo_user/{userId}/pending")
     public List<Transfer> getPendingTransfersByUserId(@PathVariable long userId) {
         return transferDao.getPendingTransfers(userId);
     }

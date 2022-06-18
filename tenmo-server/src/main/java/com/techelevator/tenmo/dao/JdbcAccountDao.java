@@ -4,7 +4,6 @@ import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.Balance;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
