@@ -60,7 +60,7 @@ public class JdbcAccountDao implements AccountDao{
     @Override
     public Balance getBalance(String user){     // this needs to return current logged in account balance
         Balance balance = new Balance();
-        String sql = "SELECT username, balance FROM account JOIN users USING(user_id) WHERE username = ?;";
+        String sql = "SELECT balance FROM account JOIN tenmo_user USING(user_id) WHERE username = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
         if(results.next()){
             String accountBalance = results.getString("balance");

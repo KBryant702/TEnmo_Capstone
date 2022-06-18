@@ -1,7 +1,5 @@
 package com.techelevator.tenmo.dao;
 
-import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.Balance;
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -38,8 +36,8 @@ public class JdbcTransferDao implements TransferDao{
     public List<Transfer> getTransfersByUserId(long userId){
         List<Transfer> transfers = new ArrayList<>();
         
-        String sql = "SELECT userId, transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount, " +
-                "From transfer JOIN account ON account.account_id = transfer.account_to WHERE user_id = ?;";
+        String sql = "SELECT user_Id, transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
+                "FROM transfer JOIN account ON account.account_id = transfer.account_to WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while(results.next()){
             transfers.add(mapResultToAccounts(results));
@@ -52,7 +50,7 @@ public class JdbcTransferDao implements TransferDao{
         Transfer transfer = null;
         
         String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
-                "From transfer WHERE transfer_id = ?;";
+                "FROM transfer WHERE transfer_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, transferId);
         if(results.next()){
             transfer = mapResultToAccounts(results);
@@ -65,7 +63,7 @@ public class JdbcTransferDao implements TransferDao{
         List<Transfer> transfers = new ArrayList<>();
         
         String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
-                "From transfer JOIN account ON account.account_id = transfer.account_to " +
+                "FROM transfer JOIN account ON account.account_id = transfer.account_to " +
                 "JOIN transfer_status USING(transfer_status_id) WHERE user_id = ? AND transfer_status_desc = 'Pending';";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
         while(results.next()){
@@ -73,23 +71,19 @@ public class JdbcTransferDao implements TransferDao{
         }
         return transfers;
     }
-    
+
     @Override
-    public boolean createTransfer(Transfer transfer){
-        // boolean success;               // do we need to return an actual boolean variable or can the current return function work?
+    public void createTransfer(Transfer transfer){
         String sql = "INSERT INTO transfer (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
                 "VALUES (?,?,?,?,?,?);";
-        int numberOfRows = jdbcTemplate.update(sql, transfer.getTransferId(), transfer.getTransferTypeId(), transfer.getTransferStatusId(), 
+       jdbcTemplate.update(sql, transfer.getTransferId(), transfer.getTransferTypeId(), transfer.getTransferStatusId(),
                 transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
-        return numberOfRows == 1;
     }
     
     @Override
-    public boolean updateTransfer(Transfer transfer){
+    public void updateTransfer(Transfer transfer){
         String sql = "UPDATE transfer SET transfer_status_id = ? WHERE transfer_id = ?;";
-        int numberOfRows = jdbcTemplate.update(sql, transfer.getTransferStatusId(), transfer.getTransferId());
-        
-        return numberOfRows == 1;
+        jdbcTemplate.update(sql, transfer.getTransferStatusId(), transfer.getTransferId());
     }
 
 
