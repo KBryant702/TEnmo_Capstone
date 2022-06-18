@@ -4,3 +4,10 @@
 2022-06-17T01:39:25.906783 500 : [{"timestamp":"2022-06-17T05:39:25.886+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
 2022-06-17T01:39:54.9090836 500 : [{"timestamp":"2022-06-17T05:39:54.888+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
 2022-06-17T01:41:28.6535262 500 : [{"timestamp":"2022-06-17T05:41:28.622+00:00","status":500,"error":"Internal Server Error","message":"Cannot invoke \"org.springframework.jdbc.core.JdbcTemplate.queryForRowSet(String, Object[])\" because \"this.jdbcTemplate\" is null","path":"/balance"}]
+2022-06-17T13:05:34.7082675 500 : 
+2022-06-17T13:11:26.1619649 500 : 
+2022-06-17T13:11:57.9143738 I/O error on GET request for "http://localhost:5432/tenmo/tenmo_user": Connection reset; nested exception is java.net.SocketException: Connection reset
+2022-06-17T13:25:43.7315993 500 : 
+2022-06-17T13:32:37.9857539 I/O error on GET request for "http://localhost:5432/tenmo/tenmo_user": Connection reset; nested exception is java.net.SocketException: Connection reset
+2022-06-17T13:33:18.3681936 I/O error on GET request for "http://localhost:5432/tenmo/tenmo_user": Connection reset; nested exception is java.net.SocketException: Connection reset
+2022-06-17T13:49:00.701519 I/O error on GET request for "http://localhost:5432/tenmo/tenmo_user": Connection reset; nested exception is java.net.SocketException: Connection reset

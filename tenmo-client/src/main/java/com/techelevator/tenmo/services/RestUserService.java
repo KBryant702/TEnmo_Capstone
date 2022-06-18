@@ -15,7 +15,7 @@ import java.util.List;
 public class RestUserService implements UserService{
     
     private RestTemplate restTemplate;
-    private final String API_BASE_URL = "http://localhost:5432/tenmo";
+    private final String API_BASE_URL = "http://localhost:8080/";
     
     public RestUserService(){
         this.restTemplate = new RestTemplate();

@@ -43,6 +43,21 @@ public class RestTransferService implements TransferService {
         }
         return success;
     }
+    
+    @Override
+    public void updateTransfer(AuthenticatedUser authenticatedUser, Transfer transfer){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setBearerAuth(authenticatedUser.getToken());
+        HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
+        String url = API_BASE_URL + "/transfer/" + transfer.getTransferId();
+        
+        try{
+            restTemplate.exchange(url, HttpMethod.PUT, entity, Transfer.class);
+        }catch(RestClientResponseException | ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+    }
 
     @Override
     public Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId) {
@@ -90,7 +105,7 @@ public class RestTransferService implements TransferService {
     }
 
     @Override
-    public Transfer[] getPendingTransferByUserId(AuthenticatedUser authenticatedUser, long userId) {
+    public Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser) {
         Transfer[] transfers = null;
         try {
             ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + authenticatedUser.getUser().getId() + "/pending",

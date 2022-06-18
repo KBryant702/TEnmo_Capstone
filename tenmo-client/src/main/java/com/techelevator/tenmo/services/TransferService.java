@@ -16,10 +16,11 @@ public interface TransferService {
     
     Transfer[] getAllTransfers(AuthenticatedUser authenticatedUser);     // revisit
     
-    Transfer[] getPendingTransferByUserId(AuthenticatedUser authenticatedUser, long userId);
-    
-    
+    //Transfer[] getPendingTransferByUserId(AuthenticatedUser authenticatedUser, long userId);
 
+    Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser);
+    
+    void updateTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
     
     
 }

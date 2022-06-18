@@ -12,7 +12,12 @@ public class Transfer {
     private BigDecimal amount;
 
 
-    
+    public long getTransferTypeId() {
+        return transferTypeId;
+    }
+    public void setTransferTypeId(long transferTypeId) {
+        this.transferTypeId = transferTypeId;
+    }
     public long getTransferId() {
         return transferId;
     }

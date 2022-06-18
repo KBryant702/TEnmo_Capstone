@@ -21,6 +21,19 @@ public class RestTransferStatus implements TransferStatusService{
     }
     
     @Override
+    public Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser){
+        Transfer[] transfers = null;
+        
+        try{
+            transfers = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + 
+                    authenticatedUser.getUser().getId() + "/pending", HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class).getBody();
+        }catch(RestClientResponseException | ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return transfers;
+    }
+    
+    @Override
     public Transfer getTransferStatus(AuthenticatedUser authenticatedUser, String description) {
         Transfer transferStatus = null;
         try {

@@ -19,7 +19,7 @@ public class jdbcTransferStatusDao implements TransferStatusDao{
     @Override
     public TransferStatus getByStatusDesc(String desc) {
         TransferStatus transferStatus = null;
-        String sql = "SELECT transfer_status_id, transfer_status_desc FROM transfer_statuses WHERE transfer_status_desc = ?";
+        String sql = "SELECT transfer_status_id, transfer_status_desc FROM transfer_status WHERE transfer_status_desc = ?";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, desc);
         if (result.next()) {
             int transferStatusId = result.getInt("transfer_status_id");
@@ -33,7 +33,7 @@ public class jdbcTransferStatusDao implements TransferStatusDao{
 
     @Override
     public TransferStatus getByStatusId(long statusId) {
-        String sql = "SELECT transfer_status_id, transfer_status_desc FROM transfer_statuses WHERE transfer_status_id = ?";
+        String sql = "SELECT transfer_status_id, transfer_status_desc FROM transfer_status WHERE transfer_status_id = ?";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, statusId);
         TransferStatus transferStatus = null;
         if(result.next()) {

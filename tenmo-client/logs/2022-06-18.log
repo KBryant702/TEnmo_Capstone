@@ -1,0 +1,6 @@
+2022-06-18T11:26:53.5195287 I/O error on GET request for "http://localhost:5432/tenmo/tenmo_user": Connection reset; nested exception is java.net.SocketException: Connection reset
+2022-06-18T11:52:29.146885 404 : [{"timestamp":"2022-06-18T15:52:29.120+00:00","status":404,"error":"Not Found","message":"No message available","path":"/tenmo/tenmo_user"}]
+2022-06-18T11:58:54.2979038 The user you have chosen does not exist. Please enter a valid user ID
+2022-06-18T12:26:56.46929 401 : [no body]
+2022-06-18T13:49:47.9792917 The user you have chosen does not exist. Please enter a valid user ID
+2022-06-18T13:52:52.9851129 400 : [{"timestamp":"2022-06-18T17:52:52.960+00:00","status":400,"error":"Bad Request","message":"Required String parameter 'desc' is not present","path":"/transfer_type/filter"}]
