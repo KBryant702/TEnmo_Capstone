@@ -13,32 +13,28 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class RestTransferService implements TransferService {
 
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
     private final String API_BASE_URL;
 
     public RestTransferService(String API_BASE_URL) {
-        this.restTemplate = new RestTemplate();
         this.API_BASE_URL = API_BASE_URL;
     }
 
     @Override
-    public boolean createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer) {
+    public void createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authenticatedUser.getToken());
         HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
         String url = API_BASE_URL + "/transfer/" + transfer.getTransferId();
-        boolean success = false;
 
         try {
             restTemplate.exchange(url, HttpMethod.POST, entity, Transfer.class);
-            success = true;
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         } catch (RestClientException e) {
             BasicLogger.log(e.getMessage());
         }
-        return success;
     }
     
     @Override
@@ -60,8 +56,10 @@ public class RestTransferService implements TransferService {
     public Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId) {
         Transfer[] transfers = null;
         try {
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
-            transfers = response.getBody();
+//            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
+//            transfers = response.getBody();
+            transfers = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + userId, HttpMethod.GET, 
+                    createHttpEntity(authenticatedUser), Transfer[].class).getBody();
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         } catch (ResourceAccessException e) {
@@ -75,8 +73,10 @@ public class RestTransferService implements TransferService {
     public Transfer getTransferByTransferId(AuthenticatedUser authenticatedUser, long transferId) {
         Transfer transfer = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer/" + transferId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
-            transfer = response.getBody();
+//            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer/" + transferId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
+//            transfer = response.getBody();
+            transfer = restTemplate.exchange(API_BASE_URL + "/transfer" + transferId, 
+                    HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class).getBody();
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         } catch (ResourceAccessException e) {
@@ -90,8 +90,10 @@ public class RestTransferService implements TransferService {
     public Transfer[] getAllTransfers(AuthenticatedUser authenticatedUser) {
         Transfer[] transfers = new Transfer[0];
         try {
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer", HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
-            transfers = response.getBody();
+//            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer", HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
+//            transfers = response.getBody();
+            transfers = restTemplate.exchange(API_BASE_URL + "/transfer", HttpMethod.GET, 
+                    createHttpEntity(authenticatedUser), Transfer[].class).getBody();
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         } catch (ResourceAccessException e) {
@@ -105,9 +107,12 @@ public class RestTransferService implements TransferService {
     public Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser) {
         Transfer[] transfers = null;
         try {
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + authenticatedUser.getUser().getId() + "/pending",
-                    HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
-            transfers = response.getBody();
+//            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + authenticatedUser.getUser().getId() + "/pending",
+//                    HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
+//            transfers = response.getBody();
+            transfers = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + 
+                    authenticatedUser.getUser().getId() + "/pending", HttpMethod.GET, 
+                    createHttpEntity(authenticatedUser), Transfer[].class).getBody();
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
         } catch (ResourceAccessException e) {
@@ -117,11 +122,12 @@ public class RestTransferService implements TransferService {
         return transfers;
     }
 
-    private HttpEntity<AuthenticatedUser> createHttpEntity(AuthenticatedUser authenticatedUser) {    //confirm this is supposed to be authenticatedUser
+    private HttpEntity<AuthenticatedUser> createHttpEntity(AuthenticatedUser authenticatedUser) {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(authenticatedUser.getToken());
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(authenticatedUser, headers);
     }
+
 
 }

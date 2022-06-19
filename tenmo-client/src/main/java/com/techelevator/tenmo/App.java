@@ -163,7 +163,7 @@ public class App {
             consoleService.printMainMenu();
         }
         if (validateUserChoice(userIdChoice, users, currentUser)) {
-            BigDecimal amountChoice = consoleService.promptForBigDecimal("Enter amount");
+            String amountChoice = consoleService.promptForString("Enter amount");
             createTransfer(userIdChoice, amountChoice, "Send", "Approved");
         }
     }
@@ -178,12 +178,12 @@ public class App {
             consoleService.printMainMenu();
         }
         if(validateUserChoice(userIdChoice, users, currentUser)) {
-            BigDecimal amountChoice = consoleService.promptForBigDecimal("Enter amount");
+            String amountChoice = consoleService.promptForString("Enter amount");
             createTransfer(userIdChoice, amountChoice, "Request", "Pending");
         }
     }
     
-    private void createTransfer (long accountChoiceUserId, BigDecimal amountToSend, String transferType, String status){
+    private Transfer createTransfer (long accountChoiceUserId, String amountToSend, String transferType, String status){
         long transferTypeId = transferTypeService.getTransferType(currentUser, transferType).getTransferTypeId();
         long transferStatusId = transferStatusService.getTransferStatus(currentUser, status).getTransferStatusId();
         long accountToId;
@@ -197,7 +197,7 @@ public class App {
             accountFromId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
         }
 
-        BigDecimal amount = amountToSend;
+        BigDecimal amount = new BigDecimal(amountToSend);
         Transfer transfer = new Transfer();
         transfer.setAccountFrom(accountFromId);
         transfer.setAccountTo(accountToId);
@@ -208,6 +208,7 @@ public class App {
 
         transferService.createTransfer(currentUser, transfer);
         App.incrementTransferIdNumber();
+        return transfer;
     }
 
     public static void incrementTransferIdNumber(){

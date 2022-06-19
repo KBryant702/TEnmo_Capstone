@@ -15,8 +15,6 @@ public class Transfer {
     public long getTransferTypeId() {
         return transferTypeId;
     }
-
-
     public void setTransferTypeId(long transferTypeId) {
         this.transferTypeId = transferTypeId;
     }

@@ -1,11 +1,11 @@
 package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.TransferType;
 
 public interface TransferTypeService {
 
-    Transfer getTransferType(AuthenticatedUser authenticatedUser, String description);
+    TransferType getTransferType(AuthenticatedUser authenticatedUser, String description);
 
-    Transfer getTransferTypeById(AuthenticatedUser authenticatedUser, long transferTypeId);
+    TransferType getTransferTypeById(AuthenticatedUser authenticatedUser, long transferTypeId);
 }

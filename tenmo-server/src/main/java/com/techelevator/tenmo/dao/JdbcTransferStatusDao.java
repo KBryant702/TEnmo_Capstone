@@ -25,9 +25,7 @@ public class JdbcTransferStatusDao implements TransferStatusDao{
             int transferStatusId = result.getInt("transfer_status_id");
             String transferStatusDesc = result.getString("transfer_status_desc");
             transferStatus = new TransferStatus(transferStatusId, transferStatusDesc);
-
         }
-
         return transferStatus;
     }
 
@@ -40,9 +38,7 @@ public class JdbcTransferStatusDao implements TransferStatusDao{
             int transferStatusId2 = result.getInt("transfer_status_id");
             String transferStatusDesc = result.getString(("transfer_status_desc"));
             transferStatus = new TransferStatus(transferStatusId2, transferStatusDesc);
-
         }
-
         return transferStatus;
     }
 }
