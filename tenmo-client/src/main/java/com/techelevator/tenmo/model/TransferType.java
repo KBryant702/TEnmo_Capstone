@@ -5,10 +5,10 @@ public class TransferType {
     private long transferTypeId;
     private String transferTypeDesc;
     
-    public long getTransferTypeId() {
+    public long getTransferTypeById() {
         return transferTypeId;
     }
-    public void setTransferTypeId(long transferTypeId) {
+    public void setTransferTypeById(long transferTypeId) {
         this.transferTypeId = transferTypeId;
     }
     public String getTransferTypeDesc() {

@@ -2,6 +2,7 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.TransferStatus;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -21,12 +22,13 @@ public class RestTransferStatusService implements TransferStatusService {
     }
 
     @Override
-    public Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser){
-        Transfer[] transfers = null;
+    public TransferStatus[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser){
+        TransferStatus[] transfers = null;
         
         try{
             transfers = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + 
-                    authenticatedUser.getUser().getId() + "/pending", HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class).getBody();
+                    authenticatedUser.getUser().getId() + "/pending", HttpMethod.GET, 
+                    createHttpEntity(authenticatedUser), TransferStatus[].class).getBody();
         }catch(RestClientResponseException | ResourceAccessException e){
             BasicLogger.log(e.getMessage());
         }
@@ -34,11 +36,11 @@ public class RestTransferStatusService implements TransferStatusService {
     }
     
     @Override
-    public Transfer getTransferStatus(AuthenticatedUser authenticatedUser, String description) {
-        Transfer transferStatus = null;
+    public TransferStatus getTransferStatus(AuthenticatedUser authenticatedUser, String description) {
+        TransferStatus transferStatus = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/filter?description="    // transferstatus needs revision as it's not setup in this form
-                    + description, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
+            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/filter?description="    // transferstatus needs revision as it's not setup in this form
+                    + description, HttpMethod.GET, createHttpEntity(authenticatedUser), TransferStatus.class);
             transferStatus = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -48,11 +50,11 @@ public class RestTransferStatusService implements TransferStatusService {
     }
 
     @Override
-    public Transfer getTransferStatusById(AuthenticatedUser authenticatedUser, long transferStatusId) {
-        Transfer transferStatus = null;
+    public TransferStatus getTransferStatusById(AuthenticatedUser authenticatedUser, long transferStatusId) {
+        TransferStatus transferStatus = null;
         try {
-            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/" + transferStatusId,  // same as stated in above method
-                    HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
+            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/" + transferStatusId,  // same as stated in above method
+                    HttpMethod.GET, createHttpEntity(authenticatedUser), TransferStatus.class);
             transferStatus = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -62,12 +64,11 @@ public class RestTransferStatusService implements TransferStatusService {
     }
 
     @Override
-    public boolean updateTransferStatus(AuthenticatedUser authenticatedUser, Transfer transfer) {
+    public void updateTransferStatus(AuthenticatedUser authenticatedUser, Transfer transfer) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authenticatedUser.getToken());
         HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
-        boolean success = false;
 
         try {
             restTemplate.put(API_BASE_URL + "/transfer/" + transfer.getTransferId(), HttpMethod.PUT, entity, Transfer.class);
@@ -76,7 +77,6 @@ public class RestTransferStatusService implements TransferStatusService {
         } catch (ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-        return success;
 
     }
 

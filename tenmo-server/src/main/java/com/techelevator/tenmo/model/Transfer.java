@@ -6,18 +6,11 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class Transfer {
-    @Id
-    @NotNull
     private long transferId;
-    @NotNull
     private long transferTypeId;
-    @NotNull
     private long transferStatusId;
-    @NotNull
     private long accountFrom;
-    @NotNull
     private long accountTo;
-    @NotNull
     private BigDecimal amount;
 
     public Transfer(){

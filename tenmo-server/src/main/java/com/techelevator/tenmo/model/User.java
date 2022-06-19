@@ -8,13 +8,9 @@ import java.util.Objects;
 import java.util.Set;
 
 public class User {
-   @NotNull
    private Long id;
-   @NotEmpty
    private String username;
-   @NotEmpty
    private String password;
-   @NotNull
    private Boolean activated;
    private Set<Authority> authorities = new HashSet<>();
 

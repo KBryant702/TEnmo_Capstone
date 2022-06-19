@@ -5,7 +5,6 @@ import java.util.Objects;
 
 public class Authority {
 
-   @NotEmpty
    private String name;
 
    public String getName() {

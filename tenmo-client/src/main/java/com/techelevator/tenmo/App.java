@@ -184,8 +184,8 @@ public class App {
     }
     
     private Transfer createTransfer (long accountChoiceUserId, String amountToSend, String transferType, String status){
-        long transferTypeId = transferTypeService.getTransferType(currentUser, transferType).getTransferTypeId();
-        long transferStatusId = transferStatusService.getTransferStatus(currentUser, status).getTransferStatusId();
+        long transferTypeId = transferTypeService.getTransferType(currentUser, transferType).getTransferTypeById();
+        long transferStatusId = transferStatusService.getTransferStatus(currentUser, status).getTransferStatusById();
         long accountToId;
         long accountFromId;
 
@@ -252,10 +252,10 @@ public class App {
         switch(choice){
             case 0: consoleService.printMainMenu();
                 break;
-            case 1: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Approved").getTransferStatusId();
+            case 1: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Approved").getTransferStatusById();
                 pendingTransfer.setTransferStatusId(transferStatusId);
                 break;
-            case 2: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Rejected").getTransferStatusId();
+            case 2: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Rejected").getTransferStatusById();
                 pendingTransfer.setTransferStatusId(transferStatusId);
                 break;
         }

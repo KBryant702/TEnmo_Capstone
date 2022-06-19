@@ -75,7 +75,7 @@ public class RestTransferService implements TransferService {
         try {
 //            ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer/" + transferId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
 //            transfer = response.getBody();
-            transfer = restTemplate.exchange(API_BASE_URL + "/transfer" + transferId, 
+            transfer = restTemplate.exchange(API_BASE_URL + "/transfer/" + transferId, 
                     HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class).getBody();
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());

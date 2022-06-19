@@ -5,7 +5,7 @@ public class TransferStatus {
     private long transferStatusId;
     private String transferStatusDesc;
 
-    public long getTransferStatusId() {
+    public long getTransferStatusById() {
         return transferStatusId;
     }
     public void setTransferStatusId(long transferStatusId) {

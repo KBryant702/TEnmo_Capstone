@@ -42,7 +42,7 @@ public class RestAccountService implements AccountService {
     public Account getAccountById(AuthenticatedUser authenticatedUser, long accountId) {
         Account account = null;
         try {
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + accountId, HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "/account/" + accountId, HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);
             account = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -54,7 +54,8 @@ public class RestAccountService implements AccountService {
     public Account getAccountByUserId(AuthenticatedUser authenticatedUser, long userId) {
         Account account = null;
         try {
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "/tenmo_user/" + userId, 
+                    HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);
             account = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());

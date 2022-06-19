@@ -8,10 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class TransferType {
-    @Id
-    @NotNull
     private long transferTypeId;
-    @NotEmpty
     private String transferTypeDesc;
 
     public TransferType(){

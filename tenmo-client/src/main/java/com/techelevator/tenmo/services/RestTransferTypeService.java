@@ -28,7 +28,7 @@ public class RestTransferTypeService implements TransferTypeService {
 //            ResponseEntity<TransferType> response = restTemplate.exchange(API_BASE_URL + "transfer_type/filter?description="    // same as stated in above method
 //                    + description, HttpMethod.GET, createHttpEntity(authenticatedUser), TransferType.class);
 //            transferType = response.getBody();
-            transferType = restTemplate.exchange(API_BASE_URL + "transfer_type/filter?description = " + 
+            transferType = restTemplate.exchange(API_BASE_URL + "/transfer_type/filter?description = " + 
                     description, HttpMethod.GET, createHttpEntity(authenticatedUser), TransferType.class).getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -41,18 +41,16 @@ public class RestTransferTypeService implements TransferTypeService {
     public TransferType getTransferTypeById(AuthenticatedUser authenticatedUser, long transferTypeId) {
         TransferType transferType = null;
         try {
-//            ResponseEntity<TransferType> response = restTemplate.exchange(API_BASE_URL + "transfer_type/" + transferTypeId,   // same as stated in above method
-//                    HttpMethod.GET, createHttpEntity(authenticatedUser), TransferType.class);
-//            transferType = response.getBody();
-            transferType = restTemplate.exchange(API_BASE_URL + "transfer_type/" + transferTypeId, HttpMethod.GET, 
-                    createHttpEntity(authenticatedUser), TransferType.class).getBody();
+            ResponseEntity<TransferType> response = restTemplate.exchange(API_BASE_URL + "/transfer_type/" + transferTypeId,   // same as stated in above method
+                    HttpMethod.GET, createHttpEntity(authenticatedUser), TransferType.class);
+            transferType = response.getBody();
+//            transferType = restTemplate.exchange(API_BASE_URL + "/transfer_type/" + transferTypeId, HttpMethod.GET, 
+//                    createHttpEntity(authenticatedUser), TransferType.class).getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-
         return transferType;
     }
-
 
     private HttpEntity<AuthenticatedUser> createHttpEntity(AuthenticatedUser authenticatedUser) {    //confirm this is supposed to be authenticatedUser
         HttpHeaders headers = new HttpHeaders();

@@ -6,14 +6,10 @@ import javax.validation.constraints.NotNull;
 
 public class Account {
 
-    @Id
-    @NotNull
     private long accountId;
 
-    @NotNull
     private long userId;
     
-    @NotNull
     private Balance balance;
 
 

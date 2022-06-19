@@ -4,9 +4,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class RegisterUserDTO {
 
-    @NotEmpty
     private String username;
-    @NotEmpty
     private String password;
 
     public String getUsername() {
