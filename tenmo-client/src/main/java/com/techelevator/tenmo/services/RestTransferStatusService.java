@@ -38,9 +38,10 @@ public class RestTransferStatusService implements TransferStatusService {
     @Override
     public TransferStatus getTransferStatus(AuthenticatedUser authenticatedUser, String description) {
         TransferStatus transferStatus = null;
+        HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try {
-            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/filter?description="    // transferstatus needs revision as it's not setup in this form
-                    + description, HttpMethod.GET, createHttpEntity(authenticatedUser), TransferStatus.class);
+            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "transfer_status/filter?desc="    // transferstatus needs revision as it's not setup in this form
+                    + description, HttpMethod.GET, entity, TransferStatus.class);
             transferStatus = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -53,7 +54,7 @@ public class RestTransferStatusService implements TransferStatusService {
     public TransferStatus getTransferStatusById(AuthenticatedUser authenticatedUser, long transferStatusId) {
         TransferStatus transferStatus = null;
         try {
-            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "/transfer_status/" + transferStatusId,  // same as stated in above method
+            ResponseEntity<TransferStatus> response = restTemplate.exchange(API_BASE_URL + "transfer_status/" + transferStatusId,  // same as stated in above method
                     HttpMethod.GET, createHttpEntity(authenticatedUser), TransferStatus.class);
             transferStatus = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
