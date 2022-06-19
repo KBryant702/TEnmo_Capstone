@@ -15,14 +15,14 @@ public class ConsoleService {
     private final Scanner scanner = new Scanner(System.in);
     private PrintWriter output;
     private Scanner input;
-    
-    
-    public ConsoleService(InputStream input, OutputStream output){
+
+
+    public ConsoleService(InputStream input, OutputStream output) {
         this.output = new PrintWriter(output, true);
         this.input = new Scanner(input);
     }
-    
-    
+
+
     public int promptForMenuSelection(String prompt) {
         int menuSelection;
         System.out.print(prompt);
@@ -103,7 +103,7 @@ public class ConsoleService {
     }
 
     public void printUsers(User[] users) {
-        for(User user: users) {
+        for (User user : users) {
             output.println(user.getId() + "          " + user.getUsername());
         }
         output.println("---------");

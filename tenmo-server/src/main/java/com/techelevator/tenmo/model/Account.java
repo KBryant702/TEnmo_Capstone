@@ -1,21 +1,25 @@
 package com.techelevator.tenmo.model;
 
 
-import org.springframework.data.annotation.Id;
-
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 public class Account {
-    
+
     @Id
     @NotNull
     private long accountId;
-    
+
     @NotNull
     private long userId;
     
     @NotNull
     private Balance balance;
+
+
+    public void setId(Long id) {
+        this.accountId = id;
+    }
 
     public Account(){
 

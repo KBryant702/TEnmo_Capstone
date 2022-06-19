@@ -15,7 +15,6 @@ public class App {
 
 //    private final ConsoleService consoleService = new ConsoleService();
 //    private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
-    
 
     private AuthenticatedUser currentUser;
     private AccountService accountService;
@@ -26,7 +25,6 @@ public class App {
     private TransferService transferService;
     private ConsoleService consoleService;
     private static long transferIdNumber;
-    
 
     public static void main(String[] args) {
         App app = new App(new ConsoleService(System.in, System.out), new AuthenticationService(API_BASE_URL));
@@ -39,7 +37,7 @@ public class App {
         this.accountService = new RestAccountService(API_BASE_URL);
         this.userService = new RestUserService();
         this.transferTypeService = new RestTransferTypeService(API_BASE_URL);
-        this.transferStatusService = new RestTransferStatus(API_BASE_URL);
+        this.transferStatusService = new RestTransferStatusService(API_BASE_URL);
         this.transferService = new RestTransferService(API_BASE_URL);
     }
 
@@ -116,7 +114,7 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		Transfer[] transfers = transferService.getTransfersByUserId(currentUser, currentUser.getUser().getId());
+        Transfer[] transfers = transferService.getTransfersByUserId(currentUser, currentUser.getUser().getId());
         System.out.println("-------------------------------------------");
         System.out.println("Transfers");
         System.out.println("ID          From/To                 Amount");
@@ -129,7 +127,7 @@ public class App {
         for(Transfer transfer: transfers) {
             printTransferReceipt(currentUser, transfer);
         }
-	}
+    }
 
 	private void viewPendingRequests() {
 		// TODO Auto-generated method stub
@@ -169,9 +167,9 @@ public class App {
             createTransfer(userIdChoice, amountChoice, "Send", "Approved");
         }
     }
-	
-	private void requestBucks() {
-		// TODO Auto-generated method stub
+
+    private void requestBucks() {
+        // TODO Auto-generated method stub
         User[] users = userService.getAllUsers(currentUser);
         printUserOptions(currentUser, users);
         int userIdChoice = consoleService.promptForInt("Enter ID of user you are requesting money from or press 0 " +
@@ -179,18 +177,18 @@ public class App {
         if(userIdChoice == 0){
             consoleService.printMainMenu();
         }
-        if (validateUserChoice(userIdChoice, users, currentUser)) {
+        if(validateUserChoice(userIdChoice, users, currentUser)) {
             BigDecimal amountChoice = consoleService.promptForBigDecimal("Enter amount");
             createTransfer(userIdChoice, amountChoice, "Request", "Pending");
         }
-	}
-
-    private Transfer createTransfer (long accountChoiceUserId, BigDecimal amountToSend, String transferType, String status){
+    }
+    
+    private void createTransfer (long accountChoiceUserId, BigDecimal amountToSend, String transferType, String status){
         long transferTypeId = transferTypeService.getTransferType(currentUser, transferType).getTransferTypeId();
         long transferStatusId = transferStatusService.getTransferStatus(currentUser, status).getTransferStatusId();
         long accountToId;
         long accountFromId;
-        
+
         if(transferType.equals("Send")) {
             accountToId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
             accountFromId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
@@ -198,7 +196,7 @@ public class App {
             accountToId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
             accountFromId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
         }
-        
+
         BigDecimal amount = amountToSend;
         Transfer transfer = new Transfer();
         transfer.setAccountFrom(accountFromId);
@@ -210,14 +208,12 @@ public class App {
 
         transferService.createTransfer(currentUser, transfer);
         App.incrementTransferIdNumber();
-        return transfer;
     }
-    
+
     public static void incrementTransferIdNumber(){
         transferIdNumber++;
     }
-    
-    
+
     private boolean validateUserChoice(long userIdInput, User[] users, AuthenticatedUser currentUser){
         if(userIdInput != 0){
             try{
@@ -242,6 +238,7 @@ public class App {
         return false;
     }
     
+
     private void approveOrReject(Transfer pendingTransfer, AuthenticatedUser authenticatedUser){
         consoleService.printApproveOrRejectOptions();
         int choice = consoleService.promptForInt("Please choose to Accept, Reject or Cancel");

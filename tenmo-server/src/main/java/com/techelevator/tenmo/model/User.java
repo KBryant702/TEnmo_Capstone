@@ -1,5 +1,6 @@
 package com.techelevator.tenmo.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
@@ -7,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 public class User {
-
    @NotNull
    private Long id;
    @NotEmpty

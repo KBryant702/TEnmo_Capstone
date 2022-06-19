@@ -1,7 +1,5 @@
 package com.techelevator.tenmo.dao;
 
-import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.Balance;
 import com.techelevator.tenmo.model.Transfer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -12,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class jdbcTransferDao implements TransferDao{
+public class JdbcTransferDao implements TransferDao{
     
     private JdbcTemplate jdbcTemplate;
 
-    public jdbcTransferDao(JdbcTemplate jdbcTemplate) {
+    public JdbcTransferDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
     
@@ -73,23 +71,19 @@ public class jdbcTransferDao implements TransferDao{
         }
         return transfers;
     }
-    
+
     @Override
-    public boolean createTransfer(Transfer transfer){
-        // boolean success;               // do we need to return an actual boolean variable or can the current return function work?
+    public void createTransfer(Transfer transfer){
         String sql = "INSERT INTO transfer (transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount) " +
                 "VALUES (?,?,?,?,?,?);";
-        int numberOfRows = jdbcTemplate.update(sql, transfer.getTransferId(), transfer.getTransferTypeId(), transfer.getTransferStatusId(), 
+       jdbcTemplate.update(sql, transfer.getTransferId(), transfer.getTransferTypeId(), transfer.getTransferStatusId(),
                 transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
-        return numberOfRows == 1;
     }
     
     @Override
-    public boolean updateTransfer(Transfer transfer){
+    public void updateTransfer(Transfer transfer){
         String sql = "UPDATE transfer SET transfer_status_id = ? WHERE transfer_id = ?;";
-        int numberOfRows = jdbcTemplate.update(sql, transfer.getTransferStatusId(), transfer.getTransferId());
-        
-        return numberOfRows == 1;
+        jdbcTemplate.update(sql, transfer.getTransferStatusId(), transfer.getTransferId());
     }
 
 

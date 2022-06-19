@@ -15,13 +15,13 @@ import com.techelevator.tenmo.model.AuthenticatedUser;
 public class RestAccountService implements AccountService {
 
     private RestTemplate restTemplate;
-    private final String API_BASE_URL; 
+    private final String API_BASE_URL;
 
-    public RestAccountService(String API_BASE_URL){
+    public RestAccountService(String API_BASE_URL) {
         this.restTemplate = new RestTemplate();
         this.API_BASE_URL = API_BASE_URL;
     }
-    
+
 
     @Override
     public Balance getBalance(AuthenticatedUser authenticatedUser) {
@@ -31,21 +31,20 @@ public class RestAccountService implements AccountService {
 //            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, createHttpEntity(authenticatedUser), Balance.class);
 //            balance = response.getBody();
             balance = restTemplate.exchange(API_BASE_URL + "/balance", HttpMethod.GET, entity, Balance.class).getBody();
-        }catch(RestClientResponseException | ResourceAccessException e){
+        }catch(RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
         return balance;
     }
 
-    //add balanceUpdate?
 
     @Override
     public Account getAccountById(AuthenticatedUser authenticatedUser, long accountId) {
         Account account = null;
-        try{
+        try {
             ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + accountId, HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);
-            account = response.getBody(); 
-        }catch(RestClientResponseException | ResourceAccessException e){
+            account = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
         return account;
@@ -54,13 +53,13 @@ public class RestAccountService implements AccountService {
     @Override
     public Account getAccountByUserId(AuthenticatedUser authenticatedUser, long userId) {
         Account account = null;
-        try{
+        try {
             ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Account.class);
-            account = response.getBody(); 
-        }catch(RestClientResponseException | ResourceAccessException e){
+            account = response.getBody();
+        } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-        
+
         return account;
     }
 
@@ -70,6 +69,6 @@ public class RestAccountService implements AccountService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return new HttpEntity<>(authenticatedUser, headers);
     }
-    
-    
+
+
 }

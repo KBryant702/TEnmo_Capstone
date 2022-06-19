@@ -1,6 +1,5 @@
 package com.techelevator.tenmo.services;
 
-import com.techelevator.tenmo.model.Account;
 import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.util.BasicLogger;
@@ -11,15 +10,13 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
-
 @Component
 public class RestTransferService implements TransferService {
 
     private RestTemplate restTemplate;
     private final String API_BASE_URL;
-    
-    public RestTransferService(String API_BASE_URL){
+
+    public RestTransferService(String API_BASE_URL) {
         this.restTemplate = new RestTemplate();
         this.API_BASE_URL = API_BASE_URL;
     }
@@ -32,13 +29,13 @@ public class RestTransferService implements TransferService {
         HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
         String url = API_BASE_URL + "/transfer/" + transfer.getTransferId();
         boolean success = false;
-        
-        try{
+
+        try {
             restTemplate.exchange(url, HttpMethod.POST, entity, Transfer.class);
             success = true;
-        }catch(RestClientResponseException e){
+        } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
-        }catch(RestClientException e){
+        } catch (RestClientException e) {
             BasicLogger.log(e.getMessage());
         }
         return success;
@@ -62,45 +59,45 @@ public class RestTransferService implements TransferService {
     @Override
     public Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId) {
         Transfer[] transfers = null;
-        try{
-            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" +userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
+        try {
+            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
             transfers = response.getBody();
-        }catch(RestClientResponseException e){
+        } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
-        }catch(ResourceAccessException e){
+        } catch (ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-        
+
         return transfers;
     }
 
     @Override
     public Transfer getTransferByTransferId(AuthenticatedUser authenticatedUser, long transferId) {
         Transfer transfer = null;
-        try{
+        try {
             ResponseEntity<Transfer> response = restTemplate.exchange(API_BASE_URL + "/transfer/" + transferId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class);
             transfer = response.getBody();
-        }catch(RestClientResponseException e){
+        } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
-        }catch(ResourceAccessException e){
+        } catch (ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-        
+
         return transfer;
     }
 
     @Override
     public Transfer[] getAllTransfers(AuthenticatedUser authenticatedUser) {
         Transfer[] transfers = new Transfer[0];
-        try{
+        try {
             ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer", HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
             transfers = response.getBody();
-        }catch(RestClientResponseException e){
+        } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
-        }catch(ResourceAccessException e){
+        } catch (ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-        
+
         return transfers;
     }
 
@@ -116,7 +113,7 @@ public class RestTransferService implements TransferService {
         } catch (ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
-        
+
         return transfers;
     }
 

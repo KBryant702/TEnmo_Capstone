@@ -1,11 +1,11 @@
 package com.techelevator.tenmo.model;
 
 public class Account {
-    
+
     private long accountId;
     private long userId;
     private Balance balance;
-    
+
 //    public Account(){
 //
 //    }

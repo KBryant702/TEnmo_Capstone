@@ -2,9 +2,7 @@ package com.techelevator.tenmo.model;
 
 import org.springframework.data.annotation.Id;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 import java.math.BigDecimal;
 
 public class Transfer {

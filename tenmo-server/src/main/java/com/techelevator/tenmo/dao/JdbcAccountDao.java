@@ -10,74 +10,71 @@ import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 @Component
-public class jdbcAccountDao implements AccountDao{
-    
+public class JdbcAccountDao implements AccountDao {
+
     private JdbcTemplate jdbcTemplate;
     
-    public jdbcAccountDao(DataSource ds){
+    public JdbcAccountDao(DataSource ds) {
         this.jdbcTemplate = new JdbcTemplate(ds);
     }
-    
+
     @Override
-    public List<Account> findAllAccounts(){
+    public List<Account> findAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-        
+
         String sql = "SELECT account_id FROM account;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-        
-        while(results.next()){
+
+        while (results.next()) {
             accounts.add(mapResultToAccounts(results));
         }
         return accounts;
     }
-    
+
     @Override
-    public Account findAccountByAccountId(long accountId){
+    public Account findAccountByAccountId(long accountId) {
         Account account = null;
         String sql = "SELECT account_id FROM account WHERE account_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
-        
-        if(results.next()){
-            account = mapResultToAccounts(results);
-        }        
-        return account;
-    }
-    
-    @Override
-    public Account findAccountByUserId(long userId){
-        Account account = null;
-        String sql = "SELECT user_id, account_id FROM account WHERE user_id = ?;";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 
-        if(results.next()){
+        if (results.next()) {
             account = mapResultToAccounts(results);
         }
         return account;
     }
-    
+
     @Override
-    public Balance getBalance(String user){     // this needs to return current logged in account balance
+    public Account findAccountByUserId(long userId) {
+        Account account = null;
+        String sql = "SELECT user_id, account_id FROM account WHERE user_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+
+        if (results.next()) {
+            account = mapResultToAccounts(results);
+        }
+        return account;
+    }
+
+    @Override
+    public Balance getBalance(String user) {     // this needs to return current logged in account balance
         Balance balance = new Balance();
         String sql = "SELECT balance FROM account JOIN tenmo_user USING(user_id) WHERE username = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
-        if(results.next()){
+        if (results.next()) {
             String accountBalance = results.getString("balance");
             balance.setBalance(new BigDecimal(accountBalance));
         }
         return balance;
     }
-    
+
     @Override
     public void updateAccount(Account account){
         String sql = "UPDATE account SET balance = ? WHERE account_id = ?;";
-        
         jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
-        
     }
-    
-    private Account mapResultToAccounts(SqlRowSet result){
+
+    private Account mapResultToAccounts(SqlRowSet result) {
         long accountId = result.getLong("account_id");
         long userId = result.getLong("user_id");
         Balance balance = new Balance();
@@ -85,5 +82,4 @@ public class jdbcAccountDao implements AccountDao{
         balance.setBalance(new BigDecimal(accountBalance));
         return new Account(accountId, userId, balance);
     }
-    
 }
