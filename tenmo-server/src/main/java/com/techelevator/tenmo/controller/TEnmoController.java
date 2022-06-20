@@ -110,9 +110,9 @@ public class TEnmoController {
 //        return accountDao.findAccountByAccountId(accountId);
 //    }
 
-    @GetMapping(path = "/transfer/tenmo_user/{userId}")
-    public List<Transfer> getTransfersByUserId(@PathVariable long userId) {
-        return transferDao.getTransfersByUserId(userId);
+    @GetMapping(path = "/transfer/tenmo_user/{userAccountId}")
+    public List<Transfer> getTransfersByUserAccountId(@PathVariable long userAccountId) {
+        return transferDao.getTransfersByUserAccountId(userAccountId);
     }
 
     @GetMapping(path = "/tenmo_user/{userId}")

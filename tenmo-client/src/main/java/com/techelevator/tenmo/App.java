@@ -114,13 +114,15 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-        Transfer[] transfers = transferService.getTransfersByUserId(currentUser, currentUser.getUser().getId());
+        long currentUserAccountId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
+        Transfer[] transfers = transferService.getTransfersByUserAccountId(currentUser, currentUserAccountId);
         System.out.println("-------------------------------------------");
         System.out.println("Transfers");
         System.out.println("ID          From/To                 Amount");
         System.out.println("-------------------------------------------");
-        long userSelectionTransferId = consoleService.promptForInt("Please enter transfer ID to view or press 0 to " +
-                "return to previous menu.");
+//        long userSelectionTransferId = consoleService.promptForInt("Please enter transfer ID to view or press 0 to " +
+//                "return to previous menu.");
+        long userSelectionTransferId = consoleService.promptForInt("Press 0 to return to previous menu.");
         if(userSelectionTransferId == 0){
             consoleService.printMainMenu();
         }

@@ -8,7 +8,7 @@ public interface TransferDao {
     
     List<Transfer> getAllTransfers();
     
-    List<Transfer> getTransfersByUserId(long userId);
+    List<Transfer> getTransfersByUserAccountId(long userAccountId);
 
     Transfer getTransferByTransferId(long transferId);
     

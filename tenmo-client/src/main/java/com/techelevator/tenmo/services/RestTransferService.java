@@ -56,12 +56,12 @@ public class RestTransferService implements TransferService {
 //    }
 
     @Override
-    public Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId) {
+    public Transfer[] getTransfersByUserAccountId(AuthenticatedUser authenticatedUser, long userAccountId) {
         Transfer[] transfers = null;
         try {
 //            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
 //            transfers = response.getBody();
-            transfers = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + userId, HttpMethod.GET, 
+            transfers = restTemplate.exchange(API_BASE_URL + "transfer/tenmo_user/" + userAccountId, HttpMethod.GET, 
                     createHttpEntity(authenticatedUser), Transfer[].class).getBody();
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());

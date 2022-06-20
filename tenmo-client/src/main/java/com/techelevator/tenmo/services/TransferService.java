@@ -7,7 +7,7 @@ public interface TransferService {
     
     void createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
     
-    Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId);
+    Transfer[] getTransfersByUserAccountId(AuthenticatedUser authenticatedUser, long userAccountId);
     
     Transfer getTransferByTransferId(AuthenticatedUser authenticatedUser, long transferId);
     
