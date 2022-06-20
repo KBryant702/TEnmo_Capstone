@@ -25,10 +25,12 @@ public class RestAccountService implements AccountService {
 
     @Override
     public Balance getBalance(AuthenticatedUser authenticatedUser) {
-        HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         Balance balance = null;
+        HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try{
-            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, entity, Balance.class);
+//            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, entity, Balance.class);        // authenticated user not needed here. replace with "/balance"
+//            balance = response.getBody();
+            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + "balance", HttpMethod.GET, entity, Balance.class);     // works
             balance = response.getBody();
 //            balance = restTemplate.exchange(API_BASE_URL + "/balance", HttpMethod.GET, entity, Balance.class).getBody();
         }catch(RestClientResponseException | ResourceAccessException e) {
@@ -56,7 +58,7 @@ public class RestAccountService implements AccountService {
         Account account = null;
         HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try {
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "tenmo_user/" + userId, 
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/" + userId, 
                     HttpMethod.GET, entity, Account.class);
             System.out.println("test");
             account = response.getBody();

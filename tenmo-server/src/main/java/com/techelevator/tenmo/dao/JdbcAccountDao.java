@@ -23,7 +23,7 @@ public class JdbcAccountDao implements AccountDao {
     public List<Account> findAllAccounts() {
         List<Account> accounts = new ArrayList<>();
 
-        String sql = "SELECT account_id FROM account;";
+        String sql = "SELECT account_id, user_id, balance FROM account;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 
         while (results.next()) {
@@ -35,7 +35,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Account findAccountByAccountId(long accountId) {
         Account account = null;
-        String sql = "SELECT account_id FROM account WHERE account_id = ?;";
+        String sql = "SELECT account_id, user_id, balance FROM account WHERE account_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
 
         if (results.next()) {
@@ -47,7 +47,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Account findAccountByUserId(long userId) {
         Account account = null;
-        String sql = "SELECT user_id, account_id FROM account WHERE user_id = ?;";
+        String sql = "SELECT user_id, account_id, balance FROM account JOIN tenmo_user USING(user_id) WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 
         if (results.next()) {
@@ -59,7 +59,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Balance getBalance(String user) {     // this needs to return current logged in account balance
         Balance balance = new Balance();
-        String sql = "SELECT balance FROM account JOIN tenmo_user USING(user_id) WHERE username = ?;";
+        String sql = "SELECT account_id, user_id, balance FROM account JOIN tenmo_user USING(user_id) WHERE username = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
         if (results.next()) {
             String accountBalance = results.getString("balance");

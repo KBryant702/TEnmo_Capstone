@@ -31,8 +31,7 @@ public class Balance {
     
     @Override
     public String toString() {
-        return "Balance{" +
-                "balance=" + balance +
+        return "balance=" + balance +
                 '}';
     }
 }

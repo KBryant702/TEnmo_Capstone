@@ -69,11 +69,12 @@ public class TEnmoController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(path = "/transfer/{id}")
-    public void createTransfer(@RequestBody Transfer transfer, @PathVariable long id) throws InsufficientFunds {
+    @PostMapping(path = "/transfer/")
+    public void createTransfer(@RequestBody Transfer transfer) throws InsufficientFunds {
         BigDecimal transferAmount = transfer.getAmount();
         Account accountFrom = accountDao.findAccountByAccountId(transfer.getAccountFrom());
         Account accountTo = accountDao.findAccountByAccountId(transfer.getAccountTo());
+        
 
         accountFrom.getBalance().sendMoney(transferAmount);
         accountTo.getBalance().receiveMoney(transferAmount);
@@ -100,14 +101,14 @@ public class TEnmoController {
     }
 
     @GetMapping(path = "/account/{userId}")
-    public Account findAccountByUserId(@PathVariable long userId) {
+    public Account findAccountByUserId(@PathVariable long userId) {         //needed to specify through pathvariable naming which id to pull
         return accountDao.findAccountByUserId(userId);
     }
 
-    @GetMapping(path = "/account/{accountId}")
-    public Account findAccountByAccountId(@PathVariable long accountId) {
-        return accountDao.findAccountByAccountId(accountId);
-    }
+//    @GetMapping(path = "/account/{accountId}")
+//    public Account getAccountByAccountId(@PathVariable long accountId) {         //needed to specify through pathvariable naming which id to pull
+//        return accountDao.findAccountByAccountId(accountId);
+//    }
 
     @GetMapping(path = "/transfer/tenmo_user/{userId}")
     public List<Transfer> getTransfersByUserId(@PathVariable long userId) {
