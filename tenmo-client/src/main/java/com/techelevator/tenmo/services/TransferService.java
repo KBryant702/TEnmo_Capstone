@@ -15,9 +15,9 @@ public interface TransferService {
     
     //Transfer[] getPendingTransferByUserId(AuthenticatedUser authenticatedUser, long userId);
 
-    Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser);
+//    Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser);
     
-    void updateTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
+//    void updateTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
     
     
 }

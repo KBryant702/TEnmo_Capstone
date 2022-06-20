@@ -131,25 +131,25 @@ public class App {
 
 	private void viewPendingRequests() {
 		// TODO Auto-generated method stub
-        Transfer[] transfers = transferService.getPendingTransfersByUserId(currentUser);
-        System.out.println("-------------------------------");
-        System.out.println("Pending Transfers");
-        System.out.println("ID          To          Amount");
-        System.out.println("-------------------------------");
-
-        for(Transfer transfer: transfers) {
-            printTransferReceipt(currentUser, transfer);
-        }
-        // TODO ask to view details
-        int transferIdChoice = consoleService.promptForInt("Please enter transfer ID to approve/reject or " +
-                "press 0 to cancel and return to main menu.)");
-        if(transferIdChoice == 0){
-            consoleService.printMainMenu();
-        }
-        Transfer transferChoice = validateTransferIdChoice(transferIdChoice, transfers, currentUser);
-        if(transferChoice != null) {
-            approveOrReject(transferChoice, currentUser);
-        }
+//        Transfer[] transfers = transferService.getPendingTransfersByUserId(currentUser);
+//        System.out.println("-------------------------------");
+//        System.out.println("Pending Transfers");
+//        System.out.println("ID          To          Amount");
+//        System.out.println("-------------------------------");
+//
+//        for(Transfer transfer: transfers) {
+//            printTransferReceipt(currentUser, transfer);
+//        }
+//        // TODO ask to view details
+//        int transferIdChoice = consoleService.promptForInt("Please enter transfer ID to approve/reject or " +
+//                "press 0 to cancel and return to main menu.)");
+//        if(transferIdChoice == 0){
+//            consoleService.printMainMenu();
+//        }
+//        Transfer transferChoice = validateTransferIdChoice(transferIdChoice, transfers, currentUser);
+//        if(transferChoice != null) {
+//            approveOrReject(transferChoice, currentUser);
+//        }
 	}
 
 	private void sendBucks() {
@@ -164,55 +164,69 @@ public class App {
         }
         if (validateUserChoice(userIdChoice, users, currentUser)) {
             String amountChoice = consoleService.promptForString("Enter amount");
-            createTransfer(userIdChoice, amountChoice, "Send", "Approved");
+            createTransfer(userIdChoice, amountChoice);
         }
     }
 
     private void requestBucks() {
         // TODO Auto-generated method stub
-        User[] users = userService.getAllUsers(currentUser);
-        printUserOptions(currentUser, users);
-        int userIdChoice = consoleService.promptForInt("Enter ID of user you are requesting money from or press 0 " +
-                "to return to previous menu.");
-        if(userIdChoice == 0){
-            consoleService.printMainMenu();
-        }
-        if(validateUserChoice(userIdChoice, users, currentUser)) {
-            String amountChoice = consoleService.promptForString("Enter amount");
-            createTransfer(userIdChoice, amountChoice, "Request", "Pending");
-        }
+//        User[] users = userService.getAllUsers(currentUser);
+//        printUserOptions(currentUser, users);
+//        int userIdChoice = consoleService.promptForInt("Enter ID of user you are requesting money from or press 0 " +
+//                "to return to previous menu.");
+//        if(userIdChoice == 0){
+//            consoleService.printMainMenu();
+//        }
+//        if(validateUserChoice(userIdChoice, users, currentUser)) {
+//            String amountChoice = consoleService.promptForString("Enter amount");
+//            createTransfer(userIdChoice, amountChoice, "Request", "Pending");
+//        }
     }
     
-    private Transfer createTransfer (long accountChoiceUserId, String amountToSend, String transferType, String status){
-        long transferTypeId = transferTypeService.getTransferType(currentUser, transferType).getTransferTypeById();
-        long transferStatusId = transferStatusService.getTransferStatus(currentUser, status).getTransferStatusById();
-        long accountToId;
-        long accountFromId;
-
-        if(transferType.equals("Send")) {
-            accountToId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
-            accountFromId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
-        } else {
-            accountToId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
-            accountFromId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
-        }
+//    private Transfer createTransfer (long accountChoiceUserId, String amountToSend, String transferType, String status){
+//        long transferTypeId = transferTypeService.getTransferType(currentUser, transferType).getTransferTypeById();
+//        long transferStatusId = transferStatusService.getTransferStatus(currentUser, status).getTransferStatusById();
+//        long accountToId;
+//        long accountFromId;
+//
+//        if(transferType.equals("Send")) {
+//            accountToId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
+//            accountFromId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
+//        } else {
+//            accountToId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
+//            accountFromId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
+//        }
+//        long accountFromId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
+//        long accountToId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
+//
+//        BigDecimal amount = new BigDecimal(amountToSend);
+//        Transfer transfer = new Transfer();
+//        transfer.setAccountFrom(accountFromId);
+//        transfer.setAccountTo(accountToId);
+//        transfer.setAmount(amount);
+//        transfer.setTransferStatusId(transferStatusId);
+//        transfer.setTransferTypeId(transferTypeId);
+//        transfer.setTransferId(transferIdNumber);
+//
+//        transferService.createTransfer(currentUser, transfer);
+//        return transfer;
+//    }
+    
+    //using this one for now
+    private void createTransfer (long accountChoiceUserId, String amountToSend){
+        long accountFromId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
+        long accountToId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
 
         BigDecimal amount = new BigDecimal(amountToSend);
         Transfer transfer = new Transfer();
+        transfer.setTransferTypeId(2);
+        transfer.setTransferStatusId(2);
         transfer.setAccountFrom(accountFromId);
         transfer.setAccountTo(accountToId);
         transfer.setAmount(amount);
-        transfer.setTransferStatusId(transferStatusId);
-        transfer.setTransferTypeId(transferTypeId);
-        transfer.setTransferId(transferIdNumber);
 
         transferService.createTransfer(currentUser, transfer);
-        App.incrementTransferIdNumber();
-        return transfer;
-    }
-
-    public static void incrementTransferIdNumber(){
-        transferIdNumber++;
+//        return transfer;
     }
 
     private boolean validateUserChoice(long userIdInput, User[] users, AuthenticatedUser currentUser){
@@ -240,27 +254,27 @@ public class App {
     }
     
 
-    private void approveOrReject(Transfer pendingTransfer, AuthenticatedUser authenticatedUser){
-        consoleService.printApproveOrRejectOptions();
-        int choice = consoleService.promptForInt("Please choose to Accept, Reject or Cancel");
-        long transferStatusId;
-        
-        if(choice > 2 || choice < 0){
-            System.out.println("Invalid choice");
-        }
-        
-        switch(choice){
-            case 0: consoleService.printMainMenu();
-                break;
-            case 1: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Approved").getTransferStatusById();
-                pendingTransfer.setTransferStatusId(transferStatusId);
-                break;
-            case 2: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Rejected").getTransferStatusById();
-                pendingTransfer.setTransferStatusId(transferStatusId);
-                break;
-        }
-        transferService.updateTransfer(currentUser, pendingTransfer);
-    }
+//    private void approveOrReject(Transfer pendingTransfer, AuthenticatedUser authenticatedUser){
+//        consoleService.printApproveOrRejectOptions();
+//        int choice = consoleService.promptForInt("Please choose to Accept, Reject or Cancel");
+//        long transferStatusId;
+//        
+//        if(choice > 2 || choice < 0){
+//            System.out.println("Invalid choice");
+//        }
+//        
+//        switch(choice){
+//            case 0: consoleService.printMainMenu();
+//                break;
+//            case 1: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Approved").getTransferStatusById();
+//                pendingTransfer.setTransferStatusId(transferStatusId);
+//                break;
+//            case 2: transferStatusId = transferStatusService.getTransferStatus(currentUser, "Rejected").getTransferStatusById();
+//                pendingTransfer.setTransferStatusId(transferStatusId);
+//                break;
+//        }
+//        transferService.updateTransfer(currentUser, pendingTransfer);
+//    }
 
     private Transfer validateTransferIdChoice(int transferIdChoice, Transfer[] transfers, AuthenticatedUser currentUser) {
         Transfer transferChoice = null;

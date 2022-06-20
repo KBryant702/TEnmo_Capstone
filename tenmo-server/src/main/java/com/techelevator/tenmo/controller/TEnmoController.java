@@ -63,10 +63,10 @@ public class TEnmoController {
         return transferStatusDao.getByStatusId(transferStatusId);
     }
 
-    @GetMapping(path = "/transfer/tenmo_user/{userId}/pending")
-    public List<Transfer> getPendingTransfersByUserId(@PathVariable long userId) {
-        return transferDao.getPendingTransfers(userId);
-    }
+//    @GetMapping(path = "/transfer/tenmo_user/{userId}/pending")
+//    public List<Transfer> getPendingTransfersByUserId(@PathVariable long userId) {
+//        return transferDao.getPendingTransfers(userId);
+//    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/transfer/")
@@ -83,22 +83,22 @@ public class TEnmoController {
         accountDao.updateAccount(accountTo);
     }
     
-    @GetMapping(path = "/transfer/{id}")
-    public void updateTransferStatus(@RequestBody Transfer transfer) throws InsufficientFunds {
-        if (transfer.getTransferStatusId() == transferStatusDao.getByStatusDesc("Approved").getTransferStatusId()) {
-            BigDecimal amountToTransfer = transfer.getAmount();
-            Account accountFrom = accountDao.findAccountByAccountId(transfer.getAccountFrom());
-            Account accountTo = accountDao.findAccountByAccountId(transfer.getAccountTo());
-
-            accountFrom.getBalance().sendMoney(amountToTransfer);
-            accountTo.getBalance().receiveMoney(amountToTransfer);
-            transferDao.updateTransfer(transfer);
-            accountDao.updateAccount(accountFrom);
-            accountDao.updateAccount(accountTo);
-        } else {
-            transferDao.updateTransfer(transfer);
-        }
-    }
+//    @GetMapping(path = "/transfer/{id}")
+//    public void updateTransferStatus(@RequestBody Transfer transfer) throws InsufficientFunds {
+//        if (transfer.getTransferStatusId() == transferStatusDao.getByStatusDesc("Approved").getTransferStatusId()) {
+//            BigDecimal amountToTransfer = transfer.getAmount();
+//            Account accountFrom = accountDao.findAccountByAccountId(transfer.getAccountFrom());
+//            Account accountTo = accountDao.findAccountByAccountId(transfer.getAccountTo());
+//
+//            accountFrom.getBalance().sendMoney(amountToTransfer);
+//            accountTo.getBalance().receiveMoney(amountToTransfer);
+//            transferDao.updateTransfer(transfer);
+//            accountDao.updateAccount(accountFrom);
+//            accountDao.updateAccount(accountTo);
+//        } else {
+//            transferDao.updateTransfer(transfer);
+//        }
+//    }
 
     @GetMapping(path = "/account/{userId}")
     public Account findAccountByUserId(@PathVariable long userId) {         //needed to specify through pathvariable naming which id to pull

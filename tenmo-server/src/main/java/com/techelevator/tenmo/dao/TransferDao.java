@@ -12,10 +12,10 @@ public interface TransferDao {
 
     Transfer getTransferByTransferId(long transferId);
     
-    List<Transfer> getPendingTransfers(long userid);
+//    List<Transfer> getPendingTransfers(long userid);
     
     void createTransfer(Transfer transfer);
     
-    void updateTransfer(Transfer transferToUpdate);
+//    void updateTransfer(Transfer transferToUpdate);
     
 }

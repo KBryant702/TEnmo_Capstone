@@ -60,7 +60,7 @@ public class RestAccountService implements AccountService {
         try {
             ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/" + userId, 
                     HttpMethod.GET, entity, Account.class);
-            System.out.println("test");
+            //System.out.println("test");
             account = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
 //            BasicLogger.log(e.getMessage());

@@ -58,19 +58,19 @@ public class JdbcTransferDao implements TransferDao{
         return transfer;
     }
     
-    @Override
-    public List<Transfer> getPendingTransfers(long userId){
-        List<Transfer> transfers = new ArrayList<>();
-        
-        String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
-                "FROM transfer JOIN account ON account.account_id = transfer.account_to " +
-                "JOIN transfer_status USING(transfer_status_id) WHERE user_id = ? AND transfer_status_desc = 'Pending';";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
-        while(results.next()){
-            transfers.add(mapResultToAccounts(results));
-        }
-        return transfers;
-    }
+//    @Override
+//    public List<Transfer> getPendingTransfers(long userId){
+//        List<Transfer> transfers = new ArrayList<>();
+//        
+//        String sql = "SELECT transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount " +
+//                "FROM transfer JOIN account ON account.account_id = transfer.account_to " +
+//                "JOIN transfer_status USING(transfer_status_id) WHERE user_id = ? AND transfer_status_desc = 'Pending';";
+//        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+//        while(results.next()){
+//            transfers.add(mapResultToAccounts(results));
+//        }
+//        return transfers;
+//    }
 
     @Override
     public void createTransfer(Transfer transfer){
@@ -79,12 +79,29 @@ public class JdbcTransferDao implements TransferDao{
        jdbcTemplate.update(sql, transfer.getTransferTypeId(), transfer.getTransferStatusId(),
                 transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
     }
+
+//    // test method
+//    @Override
+//    public void createTransfer(Transfer transfer){
+//        String sql = "INSERT INTO transfer (account_from, account_to, amount) " +
+//                "VALUES (?,?,?);";
+//        jdbcTemplate.update(sql, transfer.getAccountFrom(), transfer.getAccountTo(), transfer.getAmount());
+//    }
+
+//    private long getNextIdFromSequence() {
+//        SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('seq_transfer_id'); ");
+//        if(nextIdResult.next()) {
+//            return nextIdResult.getLong(1);
+//        } else {
+//            throw new RuntimeException("Something went wrong finding next transfer_id sequence");
+//        }
+//    }
     
-    @Override
-    public void updateTransfer(Transfer transfer){
-        String sql = "UPDATE transfer SET transfer_status_id = ? WHERE transfer_id = ?;";
-        jdbcTemplate.update(sql, transfer.getTransferStatusId(), transfer.getTransferId());
-    }
+//    @Override
+//    public void updateTransfer(Transfer transfer){
+//        String sql = "UPDATE transfer SET transfer_status_id = ? WHERE transfer_id = ?;";
+//        jdbcTemplate.update(sql, transfer.getTransferStatusId(), transfer.getTransferId());
+//    }
 
 
     private Transfer mapResultToAccounts(SqlRowSet result){
