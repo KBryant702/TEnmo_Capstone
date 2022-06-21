@@ -80,7 +80,7 @@ public class ConsoleService {
             }
         }
     }
-    
+    // ended up not using as BigDecimal can pull from a string already
     public BigDecimal promptForBigDecimal(String prompt) {
         System.out.print(prompt);
         while (true) {
@@ -92,6 +92,7 @@ public class ConsoleService {
         }
     }
 
+    // restructured into another method
     public void printTransfers(long transferId, String fromOrTo, BigDecimal amount) {
         output.println(transferId + "     " + fromOrTo + "          " + "$ " + amount);
     }

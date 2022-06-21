@@ -247,21 +247,24 @@ public class App {
 //        return transfer;
 //    }
 
-    //using this one for now
+    //using this one for now. simplified method to only handle creation of transfer. omitting checks for type/status for now.
     private void createTransfer(long accountChoiceUserId, String amountToSend) {
         long accountFromId = accountService.getAccountByUserId(currentUser, currentUser.getUser().getId()).getAccountId();
         long accountToId = accountService.getAccountByUserId(currentUser, accountChoiceUserId).getAccountId();
 
         BigDecimal amount = new BigDecimal(amountToSend);
         Transfer transfer = new Transfer();
-        transfer.setTransferTypeId(2);
-        transfer.setTransferStatusId(2);
+        transfer.setTransferTypeId(2);          // 1 = request  2 = send
+        transfer.setTransferStatusId(2);        // 1 = pending  2 = approved  3 = rejected
         transfer.setAccountFrom(accountFromId);
         transfer.setAccountTo(accountToId);
         transfer.setAmount(amount);
 
+        /*
+            todo in future: setup controls for the transferType and transferStatus ids
+         */
+        
         transferService.createTransfer(currentUser, transfer);
-//        return transfer;
     }
 
     private boolean validateUserChoice(long userIdInput, User[] users, AuthenticatedUser currentUser) {
@@ -342,7 +345,7 @@ public class App {
         consoleService.printUsers(users);
     }
 
-    // not using
+    // not using. scrapped for taking care of this inside the transferHistory method
 //    private void printTransferReceipt(AuthenticatedUser authenticatedUser, Transfer transfer) {
 //        String fromOrTo = "";
 //        long accountFrom = transfer.getAccountFrom();

@@ -158,7 +158,7 @@ public class JdbcTransferDao implements TransferDao{
     
     
     
-    //test
+    
     private Transfer mapResultToAccounts(SqlRowSet result){
         long transferId = result.getLong("transfer_id");
         long transferTypeId = result.getLong("transfer_type_id");

@@ -1,0 +1,28 @@
+SELECT accTo.user_id AS to_id, accFrom.user_id AS from_id, transfer_id, transfer_type_id, transfer_status_id, account_from, account_to, amount FROM transfer
+JOIN account AS accTo ON accTo.account_id = transfer.account_to 
+JOIN account AS accFrom ON accFrom.account_id = transfer.account_from
+WHERE accTo.user_id = ? OR accFrom.user_id = ?
+
+
+select user_id a from account
+
+
+SELECT t.*, u.username AS userFrom, v.username AS userTo, ts.transfer_status_desc, tt.transfer_type_desc 
+				FROM transfer t
+                JOIN account a ON t.account_from = a.account_id 
+                JOIN account b ON t.account_to = b.account_id
+                JOIN tenmo_user u ON a.user_id = u.user_id
+                JOIN tenmo_user v ON b.user_id = v.user_id
+                JOIN transfer_status ts ON t.transfer_status_id = ts.transfer_status_id
+                JOIN transfer_type tt ON t.transfer_type_id = tt.transfer_type_id
+                WHERE b.user_id = 1001 OR a.user_id = 1001;
+
+
+SELECT t.*, u.username AS userFrom, v.username AS userTo, transfer_type_desc, transfer_status_desc FROM transfer t
+                JOIN account a ON t.account_from = a.account_id
+                JOIN account b ON t.account_to = b.account_id
+                JOIN tenmo_user u ON a.user_id = u.user_id
+                JOIN tenmo_user v ON b.user_id = v.user_id
+				JOIN transfer_type tt ON t.transfer_type_id = tt.transfer_type_id
+				JOIN transfer_status ts ON t.transfer_status_id = ts.transfer_status_id
+                WHERE t.transfer_id = 3001

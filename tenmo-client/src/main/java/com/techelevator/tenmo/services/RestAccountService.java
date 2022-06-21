@@ -28,11 +28,9 @@ public class RestAccountService implements AccountService {
         Balance balance = null;
         HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try{
-//            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + authenticatedUser, HttpMethod.GET, entity, Balance.class);        // authenticated user not needed here. replace with "/balance"
+//            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + "balance", HttpMethod.GET, entity, Balance.class);     
 //            balance = response.getBody();
-            ResponseEntity<Balance> response = restTemplate.exchange(API_BASE_URL + "balance", HttpMethod.GET, entity, Balance.class);     // works
-            balance = response.getBody();
-//            balance = restTemplate.exchange(API_BASE_URL + "/balance", HttpMethod.GET, entity, Balance.class).getBody();
+            balance = restTemplate.exchange(API_BASE_URL + "balance", HttpMethod.GET, entity, Balance.class).getBody();    // works same as above 2 line
         }catch(RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
         }
@@ -45,7 +43,7 @@ public class RestAccountService implements AccountService {
         Account account = null;
         HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try {
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/" + accountId, HttpMethod.GET, entity, Account.class);
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/" + accountId, HttpMethod.GET, entity, Account.class);     // clean up into one liner
             account = response.getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
             BasicLogger.log(e.getMessage());
@@ -58,7 +56,7 @@ public class RestAccountService implements AccountService {
         Account account = null;
         HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try {
-            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/" + userId, 
+            ResponseEntity<Account> response = restTemplate.exchange(API_BASE_URL + "account/" + userId,            // clean up into one liner
                     HttpMethod.GET, entity, Account.class);
             //System.out.println("test");
             account = response.getBody();
