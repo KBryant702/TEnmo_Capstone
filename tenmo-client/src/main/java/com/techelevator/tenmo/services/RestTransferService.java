@@ -10,6 +10,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Scanner;
+
 @Component
 public class RestTransferService implements TransferService {
 
@@ -26,12 +28,8 @@ public class RestTransferService implements TransferService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(authenticatedUser.getToken());
         HttpEntity<Transfer> entity = new HttpEntity(transfer, headers);
-//        String url = API_BASE_URL + "transfer/";
-        System.out.println("test");
         try {
-            System.out.println("i'm in");
             restTemplate.exchange(API_BASE_URL + "transfer/", HttpMethod.POST, entity, Transfer.class);
-            System.out.println("template test");
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
             e.printStackTrace();
@@ -56,12 +54,12 @@ public class RestTransferService implements TransferService {
 //    }
 
     @Override
-    public Transfer[] getTransfersByUserAccountId(AuthenticatedUser authenticatedUser, long userAccountId) {
+    public Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userId) {
         Transfer[] transfers = null;
         try {
 //            ResponseEntity<Transfer[]> response = restTemplate.exchange(API_BASE_URL + "/transfer/tenmo_user/" + userId, HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer[].class);
 //            transfers = response.getBody();
-            transfers = restTemplate.exchange(API_BASE_URL + "transfer/tenmo_user/" + userAccountId, HttpMethod.GET, 
+            transfers = restTemplate.exchange(API_BASE_URL + "transfer/tenmo_user/" + userId, HttpMethod.GET, 
                     createHttpEntity(authenticatedUser), Transfer[].class).getBody();
         } catch (RestClientResponseException e) {
             BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
@@ -124,6 +122,45 @@ public class RestTransferService implements TransferService {
 //
 //        return transfers;
 //    }
+    @Override
+    public Transfer transferDetails(AuthenticatedUser authenticatedUser, long transferId) {
+        Transfer transfer = null;
+        try{
+            transfer = restTemplate.exchange(API_BASE_URL + "/transfer/" +transferId, HttpMethod.GET, createHttpEntity(authenticatedUser), 
+                    Transfer.class).getBody();
+        }catch(RestClientResponseException e){
+            BasicLogger.log(e.getRawStatusCode() + " : " + e.getStatusText());
+            e.printStackTrace();
+        }catch(ResourceAccessException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return transfer;
+//        System.out.print("-------------------------------------------\r\n" +
+//                "Please enter transfer ID to view details (0 to cancel): ");
+//        Scanner scanner = new Scanner(System.in);
+//        String input = scanner.nextLine();
+//        if (Integer.parseInt(input) != 0) {
+//            boolean foundTransferId = false;
+//            for (Transfer transfer : transfers) {
+//                if (Integer.parseInt(input) == transfer.getTransferId()) {
+//                    Transfer temp = restTemplate.exchange(API_BASE_URL + "transfer/" + transfer.getTransferId(), HttpMethod.GET, createHttpEntity(authenticatedUser), Transfer.class).getBody();
+//                    foundTransferId = true;
+//                    System.out.println("--------------------------------------------\r\n" +
+//                            "Transfer Details\r\n" +
+//                            "--------------------------------------------\r\n" +
+//                            " Id: " + temp.getTransferId() + "\r\n" +
+//                            " From: " + temp.getUserFrom() + "\r\n" +
+//                            " To: " + temp.getUserTo() + "\r\n" +
+//                            " Type: " + temp.getTransferType().getTransferTypeById() + "\r\n" +
+//                            " Status: " + temp.getTransferStatus().getTransferStatusById() + "\r\n" +
+//                            " Amount: $" + temp.getAmount());
+//                }
+//            }
+//            if (!foundTransferId) {
+//                System.out.println("Not a valid transfer ID");
+//            }
+//        }
+    }
 
     private HttpEntity<AuthenticatedUser> createHttpEntity(AuthenticatedUser authenticatedUser) {
         HttpHeaders headers = new HttpHeaders();

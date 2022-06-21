@@ -119,4 +119,9 @@ public class TEnmoController {
     public User getUserByUserId(@PathVariable long userId) {
         return userDao.getUserByUserId(userId);
     }
+    
+    @GetMapping(path = "/transfer/{transferId}")
+    public Transfer transferDetails(@PathVariable long transferId){
+        return transferDao.transferDetails(transferId);
+    }
 }

@@ -35,16 +35,14 @@ public class JdbcUserDao implements UserDao {
 
     @Override
     public User getUserByUserId(long userId) {
-        User user = null;
-        String sql = "SELECT user_id, username FROM tenmo_user WHERE user_id = ?";
-        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+        String sql = "SELECT user_id, username, password_hash FROM tenmo_user WHERE user_id = ?";
+        SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, userId);
         
-        if(result.next()) {
-            user = new User();
-            user.setId(result.getLong("user_id"));
-            user.setUsername(result.getString("username"));
+        if(rowSet.next()) {
+            return mapRowToUser(rowSet);
         }
-        return user;
+        throw new UsernameNotFoundException("User " + userId + " was not found.");
+        
     }
 
     @Override

@@ -10,8 +10,36 @@ public class Transfer {
     private long accountFrom;
     private long accountTo;
     private BigDecimal amount;
+    private String userTo;
+    private String userFrom;
+    private TransferType transferType;
+    private TransferStatus TransferStatus;
 
 
+    public TransferType getTransferType() {
+        return transferType;
+    }
+    public void setTransferType(TransferType transferType) {
+        this.transferType = transferType;
+    }
+    public com.techelevator.tenmo.model.TransferStatus getTransferStatus() {
+        return TransferStatus;
+    }
+    public void setTransferStatus(com.techelevator.tenmo.model.TransferStatus transferStatus) {
+        TransferStatus = transferStatus;
+    }
+    public String getUserTo() {
+        return userTo;
+    }
+    public void setUserTo(String userTo) {
+        this.userTo = userTo;
+    }
+    public String getUserFrom() {
+        return userFrom;
+    }
+    public void setUserFrom(String userFrom) {
+        this.userFrom = userFrom;
+    }
     public long getTransferTypeId() {
         return transferTypeId;
     }

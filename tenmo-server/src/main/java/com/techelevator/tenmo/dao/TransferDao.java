@@ -17,5 +17,7 @@ public interface TransferDao {
     void createTransfer(Transfer transfer);
     
 //    void updateTransfer(Transfer transferToUpdate);
+
+    public Transfer transferDetails(long transferId);
     
 }

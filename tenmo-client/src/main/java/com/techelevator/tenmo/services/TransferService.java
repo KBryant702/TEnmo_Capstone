@@ -7,7 +7,7 @@ public interface TransferService {
     
     void createTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
     
-    Transfer[] getTransfersByUserAccountId(AuthenticatedUser authenticatedUser, long userAccountId);
+    Transfer[] getTransfersByUserId(AuthenticatedUser authenticatedUser, long userAccountId);
     
     Transfer getTransferByTransferId(AuthenticatedUser authenticatedUser, long transferId);
     
@@ -18,6 +18,8 @@ public interface TransferService {
 //    Transfer[] getPendingTransfersByUserId(AuthenticatedUser authenticatedUser);
     
 //    void updateTransfer(AuthenticatedUser authenticatedUser, Transfer transfer);
+
+    public Transfer transferDetails(AuthenticatedUser authenticatedUser, long userId);
     
     
 }

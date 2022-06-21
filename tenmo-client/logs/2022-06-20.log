@@ -15,3 +15,19 @@
 2022-06-20T13:32:50.3832903 500 : 
 2022-06-20T13:34:48.3355921 500 : 
 2022-06-20T13:37:07.0972756 500 : 
+2022-06-20T18:31:34.5451015 500 : [{"timestamp":"2022-06-20T22:31:34.519+00:00","status":500,"error":"Internal Server Error","message":"Could not write JSON: Cannot invoke \"java.lang.Boolean.booleanValue()\" because \"this.activated\"... (472 bytes)]
+2022-06-20T18:33:38.3510235 500 : [{"timestamp":"2022-06-20T22:33:38.330+00:00","status":500,"error":"Internal Server Error","message":"Could not write JSON: Cannot invoke \"java.lang.Boolean.booleanValue()\" because \"this.activated\"... (472 bytes)]
+2022-06-20T19:07:55.6020505 401 : [no body]
+2022-06-20T19:08:25.9047743 401 : 
+2022-06-20T20:17:08.0933214 Current selection cannot be your own account. Please enter a new TEnmo customer.
+2022-06-20T20:19:39.2763351 500 : 
+2022-06-20T20:21:24.136552 500 : 
+2022-06-20T21:24:46.7612324 500 : 
+2022-06-20T21:31:18.0086056 500 : 
+2022-06-20T21:33:30.4520391 500 : 
+2022-06-20T21:41:32.4348445 500 : 
+2022-06-20T22:21:30.4122489 500 : 
+2022-06-20T22:21:58.9466494 500 : 
+2022-06-20T22:22:48.0136149 500 : 
+2022-06-20T22:24:46.417781 500 : 
+2022-06-20T22:26:40.9024589 500 : 
