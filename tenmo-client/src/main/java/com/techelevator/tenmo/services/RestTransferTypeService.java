@@ -11,6 +11,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+// todo will return to this class for implementing optional features
+
 @Component
 public class RestTransferTypeService implements TransferTypeService {
 
@@ -26,14 +28,11 @@ public class RestTransferTypeService implements TransferTypeService {
         TransferType transferType = null;
         HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try {
-            ResponseEntity<TransferType> response = restTemplate.exchange(API_BASE_URL + "transfer_type/filter?desc="     // same as stated in above method
-                    + description, HttpMethod.GET, entity, TransferType.class);
-            transferType = response.getBody();
-//            transferType = restTemplate.exchange(API_BASE_URL + "transfer_type/filter?description=" + 
-//                    description, HttpMethod.GET, entity, TransferType.class).getBody();
+            transferType = restTemplate.exchange(API_BASE_URL + "transfer_type/filter?description=" + 
+                    description, HttpMethod.GET, entity, TransferType.class).getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
-//            BasicLogger.log(e.getMessage());
-            e.printStackTrace();
+            BasicLogger.log(e.getMessage());
+//            e.printStackTrace();      // for testing only
         }
         return transferType;
     }
@@ -43,19 +42,16 @@ public class RestTransferTypeService implements TransferTypeService {
         TransferType transferType = null;
         HttpEntity<AuthenticatedUser> entity = createHttpEntity(authenticatedUser);
         try {
-            ResponseEntity<TransferType> response = restTemplate.exchange(API_BASE_URL + "transfer_type/" + transferTypeId,   // same as stated in above method
-                    HttpMethod.GET, entity, TransferType.class);
-            transferType = response.getBody();
-//            transferType = restTemplate.exchange(API_BASE_URL + "transfer_type/" + transferTypeId, HttpMethod.GET, 
-//                    createHttpEntity(authenticatedUser), TransferType.class).getBody();
+            transferType = restTemplate.exchange(API_BASE_URL + "transfer_type/" + transferTypeId, HttpMethod.GET, 
+                    entity, TransferType.class).getBody();
         } catch (RestClientResponseException | ResourceAccessException e) {
-//            BasicLogger.log(e.getMessage());
-            e.printStackTrace();
+            BasicLogger.log(e.getMessage());
+//            e.printStackTrace();      // for testing only
         }
         return transferType;
     }
 
-    private HttpEntity<AuthenticatedUser> createHttpEntity(AuthenticatedUser authenticatedUser) {    //confirm this is supposed to be authenticatedUser
+    private HttpEntity<AuthenticatedUser> createHttpEntity(AuthenticatedUser authenticatedUser) {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(authenticatedUser.getToken());
         headers.setContentType(MediaType.APPLICATION_JSON);

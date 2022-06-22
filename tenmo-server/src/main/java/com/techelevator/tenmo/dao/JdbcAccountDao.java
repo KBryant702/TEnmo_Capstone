@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
 public class JdbcAccountDao implements AccountDao {
 
@@ -22,7 +23,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public List<Account> findAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-
+        // select * in the account table
         String sql = "SELECT account_id, user_id, balance FROM account;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 
@@ -35,6 +36,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Account findAccountByAccountId(long accountId) {
         Account account = null;
+        // select * in the account table searching for account_id 
         String sql = "SELECT account_id, user_id, balance FROM account WHERE account_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, accountId);
 
@@ -47,6 +49,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Account findAccountByUserId(long userId) {
         Account account = null;
+        // select user_id and * in the account table, joining on the tenmo_user table to search by user_id
         String sql = "SELECT user_id, account_id, balance FROM account JOIN tenmo_user USING(user_id) WHERE user_id = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
 
@@ -59,6 +62,7 @@ public class JdbcAccountDao implements AccountDao {
     @Override
     public Balance getBalance(String user) {     // this needs to return current logged in account balance
         Balance balance = new Balance();
+        // select user_id and * from account, joining on the tenmo_user table to search by username
         String sql = "SELECT account_id, user_id, balance FROM account JOIN tenmo_user USING(user_id) WHERE username = ?;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user);
         if (results.next()) {
@@ -70,6 +74,7 @@ public class JdbcAccountDao implements AccountDao {
 
     @Override
     public void updateAccount(Account account){
+        // update account balance per supplied account_id
         String sql = "UPDATE account SET balance = ? WHERE account_id = ?;";
         jdbcTemplate.update(sql, account.getBalance().getBalance(), account.getAccountId());
     }
