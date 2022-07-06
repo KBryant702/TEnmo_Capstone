@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Welcome to the TEnmo Application
 
 You can use the [editor on GitHub](https://github.com/KBryant702/TEnmo_Capstone/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
